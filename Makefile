@@ -1,34 +1,26 @@
 define building
-	@echo -n "Building $1 "
-	@make -sC $1 > /dev/null 2> /dev/null
-	@echo "√"
+	make -sC $1 > /dev/null 2> /dev/null
 endef
 
 define compiling
-	@echo -n "Compiling $1 "
-	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $1 -o $2
-	@echo "√"
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $1 -o $2
 endef
 
 define finishing
-	@echo -n "Compiling $1 "
-	@$(CC) $(CFLAGS) $(CPPFLAGS) $(OBJS) -o $(NAME) $(LIBS)
-	@echo "√"
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(OBJS) -o $(NAME) $(LIBS)
 endef
 
 define cleaning
-	@echo -n "Cleaning $1 "
-	@make $2 -sC $1 > /dev/null
-	@echo "√"
+	make $2 -sC $1 > /dev/null
 endef
 
 define removing
-	@echo -n "Removing $1 "
-	@$(RM) $1 > /dev/null
-	@echo "√"
+	$(RM) $1 > /dev/null
 endef
 
 SRCS		= $(addprefix srcs/, \
+				obj_utils.c \
+				mlx_utils.c \
 			  	main.c \
 				)
 
