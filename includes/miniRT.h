@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/06 13:39:04 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/06 18:04:59 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 
 # define RES_X 800
 # define RES_Y 800
+
+# define ESC 65307
 
 // mlx struct
 typedef struct s_data {

@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 10:25:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/06 13:38:00 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/06 18:05:35 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 
 int	end_mlx(int keycode, t_data *data)
 {
-	(void)keycode;
-	mlx_destroy_image(data->mlx, data->img);
-	mlx_destroy_window(data->mlx, data->win);
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	exit(0);
+	if (keycode == ESC)
+	{
+		mlx_destroy_image(data->mlx, data->img);
+		mlx_destroy_window(data->mlx, data->win);
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+		exit(0);
+	}
+	return (0);
 }
 
 int	end_virtual_mlx(t_data *data)
