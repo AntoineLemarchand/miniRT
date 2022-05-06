@@ -1,4 +1,4 @@
-name: compil/norm
+name: Norminette
 
 on: [push, pull_request]
 
