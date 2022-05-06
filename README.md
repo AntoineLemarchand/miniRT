@@ -1,6 +1,6 @@
 # miniRT
 A 42 project that aims to build a very basic ray tracer using the school homemade library: the minilibx
-
+[![Norminette](https://github.com/AntoineLemarchand/miniRT/actions/workflows/main.yml/badge.svg)](https://github.com/AntoineLemarchand/miniRT/actions/workflows/main.yml)
 ## Usage
 ```
 ./miniRT <filename>.rt
