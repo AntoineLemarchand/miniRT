@@ -44,7 +44,7 @@ CC			= cc
 
 CFLAGS		= -Wall -Wextra -Werror -g
 
-CPPFLAGS	= -I/usr/includes  -I minilibx/ -Iincludes
+CPPFLAGS	= -Ilibft/includes  -I minilibx/ -Iincludes
 
 LIBS		= ./libft/libft.a minilibx/libmlx_Linux.a -lXext -lX11 -lm
 
