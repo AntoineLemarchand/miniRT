@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/06 18:04:59 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/09 16:26:57 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,22 @@
 
 # define ESC 65307
 
+enum	type { AMBIENT, LIGHT, SPHERE, PLANE, CYLINDER }
+
+// vect
+typedef struct s_vec {
+	float	x;
+	float	y;
+	float	z;
+}	t_vec;
+
+// https://www.cl.cam.ac.uk/teaching/1999/AGraphHCI/SMAG/node2.html
+// figure 23
+typedef	struct s_ray {
+	t_vec	position;
+	t_vec	offset;
+}
+
 // mlx struct
 typedef struct s_data {
 	void	*mlx;
@@ -34,7 +50,7 @@ typedef struct s_data {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}				t_data;
+}	t_data;
 
 // obj_utils.c
 void	ft_puterror(char *err);
