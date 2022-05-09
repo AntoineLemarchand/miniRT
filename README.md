@@ -24,7 +24,7 @@ The program reads files with a .rt extension which lines follows theses rules:
 
 4. sp: Sphere
 - the xyz coordinates of the view point [float],[float],[float]
-- the diameter [float],[float],[float]
+- the diameter [float]
 - an RGB colored range [uint8],[uint8],[uint8]
 
 5. pl: Plane
