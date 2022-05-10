@@ -19,6 +19,8 @@ define removing
 endef
 
 SRCS		= $(addprefix srcs/, \
+				vectors/vec_basic.c \
+				vectors/vec_alg.c \
 				obj_utils.c \
 				mlx_utils.c \
 			  	main.c \

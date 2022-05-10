@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec_utils.c                                        :+:      :+:    :+:   */
+/*   vec_alg.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:41:45 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/09 16:24:26 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/10 09:55:51 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	vec_add(t_vec *dest, t_vec *src)
 {
 	if (dest && src)
 	{
-		dest.x += src.x;
-		dest.y += src.y;
-		dest.z += src.z;
+		dest->x += src->x;
+		dest->y += src->y;
+		dest->z += src->z;
 	}
 }
 
@@ -40,9 +40,9 @@ void	vec_sub(t_vec *dest, t_vec *src)
 {
 	if (dest && src)
 	{
-		dest.x -= src.x;
-		dest.y -= src.y;
-		dest.z -= src.z;
+		dest->x -= src->x;
+		dest->y -= src->y;
+		dest->z -= src->z;
 	}
 }
 
@@ -50,13 +50,8 @@ void	vec_sub(t_vec *dest, t_vec *src)
 // figure 15
 float	vec_dot_product(t_vec *v1, t_vec *v2)
 {
-	if (dest && src)
-	{
-		dest.x = ;
-		dest.y = dest.y * src.y;
-		dest.z = dest.z * src.z;
-		return (v1->x * v2->x + v1->y * v2->y + v1->z * v2->z)
-	}
+	if (v1 && v2)
+		return (v1->x * v2->x + v1->y * v2->y + v1->z * v2->z);
 	return (0.);
 }
 
