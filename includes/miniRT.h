@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/10 09:55:32 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/10 15:08:24 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 
 # define ESC 65307
 
+// most math comes from:
+// https://www.cl.cam.ac.uk/teaching/1999/AGraphHCI/SMAG/node2.html
+
 // vect
 typedef struct s_vec {
 	float	x;
@@ -33,12 +36,10 @@ typedef struct s_vec {
 	float	z;
 }	t_vec;
 
-// https://www.cl.cam.ac.uk/teaching/1999/AGraphHCI/SMAG/node2.html
-// figure 23
 // equation: P(t) = position + t * offset, t >= 0
-// cf fig 24
+// cf fig 23 and 24
 typedef struct s_ray {
-	t_vec	position;
+	t_vec	origin;
 	t_vec	offset;
 }	t_ray;
 
@@ -79,12 +80,19 @@ typedef struct s_sphere {
 	int		col;
 }	t_sphere;
 
+// plane equation: point Q is on plane if orientation * (position - Q) == 0
+// figure 59
 typedef struct s_plane {
 	t_vec	position;
 	t_vec	orientation;
 	int		col;
 }	t_plane;
 
+//https://math.stackexchange.com/
+//questions/875569/simple-geometry-question-equation-of-cylinder
+// cylinder equation ():
+// powf((position.y - position.z), 2.) + powf((position.z - position.x), 2.)
+// + powf((position.x - position.y), 2.) == pwf(3 * orientation, 2.)
 typedef struct s_cylinder {
 	t_vec	position;
 	t_vec	orientation;
@@ -97,7 +105,7 @@ typedef struct s_cylinder {
 void	ft_puterror(char *err);
 
 // mlx_utils.c
-int		ft_fill_screen(t_data *data, int (*f)(int, int, int));
+int		ft_fill_screen(t_data *data, int *rays);
 int		end_mlx(int keycode, t_data *data);
 int		end_virtual_mlx(t_data *data);
 void	ft_initdata(t_data *data, char *name);

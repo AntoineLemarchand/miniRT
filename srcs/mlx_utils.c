@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 10:25:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/09 13:40:18 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/10 14:58:02 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,21 @@ static void	ft_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int	ft_fill_screen(t_data *data, int (*f)(int, int, int))
+int	ft_fill_screen(t_data *data, int *cols)
 {
-	float		i;
-	float		j;
+	int	y;
+	int	x;
 
-	i = 0;
-	j = 0;
-	while (i < RES_X)
+	y = 0;
+	while (y < RES_X)
 	{
-		j = 0;
-		while (j < RES_Y)
+		x = 0;
+		while (x < RES_Y)
 		{
-			ft_mlx_pixel_put(data, i, j, f(i, j, i + j));
-			j++;
+			ft_mlx_pixel_put(data, y, x, cols[y * RES_X + x]);
+			x++;
 		}
-		i++;
+		y++;
 	}
 	return (0);
 }
