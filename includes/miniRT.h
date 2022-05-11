@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/11 12:00:33 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/11 21:36:04 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,19 @@ typedef struct s_cylinder {
 	int		col;
 }	t_cylinder;
 
+// scene obj
+typedef struct s_objs {
+	int		type;
+	void	*val;
+	s_objs	*next;
+}	t_objs;
+
+typedef struct s_scene {
+	t_camera	*cam;
+	t_objs		*lights;
+	t_objs		*shapes;
+}	t_scene;
+
 // obj_utils.c
 void	ft_puterror(char *err);
 
@@ -119,5 +132,9 @@ void	vec_divide(t_vec *vec, float f);
 void	vec_normalize(t_vec *vec);
 float	vec_dot_product(t_vec *v1, t_vec *v2);
 t_vec	*vec_cross_product(t_vec *v1, t_vec *v2);
+
+// free_utils.c
+void	free_objs(t_objs *objs);
+void	free_scene(t_scene *scene);
 
 #endif
