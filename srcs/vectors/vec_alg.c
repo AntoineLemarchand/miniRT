@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:41:45 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/10 09:55:51 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/11 13:40:56 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,6 @@ void	vec_normalize(t_vec *vec)
 		vec->x /= length;
 		vec->y /= length;
 		vec->z /= length;
-	}
-}
-
-void	vec_add(t_vec *dest, t_vec *src)
-{
-	if (dest && src)
-	{
-		dest->x += src->x;
-		dest->y += src->y;
-		dest->z += src->z;
-	}
-}
-
-void	vec_sub(t_vec *dest, t_vec *src)
-{
-	if (dest && src)
-	{
-		dest->x -= src->x;
-		dest->y -= src->y;
-		dest->z -= src->z;
 	}
 }
 
@@ -66,9 +46,9 @@ t_vec	*vec_cross_product(t_vec *v1, t_vec *v2)
 		ret = malloc(sizeof(t_vec));
 		if (!ret)
 			return (NULL);
-		ret->x = v1->y * v2->z - v1->z - v2->y;
-		ret->y = v1->z * v2->x - v1->x - v2->z;
-		ret->z = v1->x * v2->y - v1->y - v2->x;
+		ret->x = v1->y * v2->z - v1->z * v2->y;
+		ret->y = v1->z * v2->x - v1->x * v2->z;
+		ret->z = v1->x * v2->y - v1->y * v2->x;
 		return (ret);
 	}
 	return (NULL);

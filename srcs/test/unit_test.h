@@ -1,46 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec_basic.c                                        :+:      :+:    :+:   */
+/*   unit_test.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/09 15:59:16 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/11 10:42:08 by alemarch         ###   ########.fr       */
+/*   Created: 2022/05/11 10:08:38 by alemarch          #+#    #+#             */
+/*   Updated: 2022/05/11 11:52:34 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#ifndef UNIT_TEST_H
+# define UNIT_TEST_H
 
-#include "miniRT.h"
+int	ft_slen(char *s);
+int	almost_equal(float f1, float f2, float precision);
+int	run_test(int (*f)( void ));
 
-t_vec	*new_vec(float x, float y, float z)
-{
-	t_vec	*ret;
-
-	ret = malloc(sizeof(t_vec));
-	if (!ret)
-		return (NULL);
-	ret->x = x;
-	ret->y = y;
-	ret->z = z;
-	return (ret);
-}
-
-void	vec_multiply(t_vec *vec, float f)
-{
-	if (vec)
-	{
-		vec->x *= f;
-		vec->y *= f;
-		vec->z *= f;
-	}
-}
-
-void	vec_divide(t_vec *vec, float f)
-{
-	if (vec)
-	{
-		vec->x /= f;
-		vec->y /= f;
-		vec->z /= f;
-	}
-}
+#endif

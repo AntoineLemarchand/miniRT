@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/10 15:08:24 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/11 12:00:33 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,15 @@ int		ft_fill_screen(t_data *data, int *rays);
 int		end_mlx(int keycode, t_data *data);
 int		end_virtual_mlx(t_data *data);
 void	ft_initdata(t_data *data, char *name);
+
+// vec_basic.c
+t_vec	*new_vec(float x, float y, float z);
+void	vec_multiply(t_vec *vec, float f);
+void	vec_divide(t_vec *vec, float f);
+
+// vec_alg.c
+void	vec_normalize(t_vec *vec);
+float	vec_dot_product(t_vec *v1, t_vec *v2);
+t_vec	*vec_cross_product(t_vec *v1, t_vec *v2);
 
 #endif
