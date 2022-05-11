@@ -1,43 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_scene.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 21:37:24 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/11 21:51:30 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/11 22:55:26 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-char	**check_file(char *file)
-{
-	int		fd;
-	char	**ret;
-	char	*line;
-
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-		return (NULL);
-	ret = NULL
-	return (ret);
-}
-
-t_objs	*init_lights(char *content)
+static t_objs	*init_lights(char **content)
 {
 	(void)content;
 	return (NULL);
 }
 
-t_objs	*init_shapes(char *content)
+static t_objs	*init_shapes(char **content)
 {
 	(void)content;
 	return (NULL);
 }
 
-t_camera	*init_cam(char *content)
+static t_camera	*init_cam(char **content)
 {
 	(void)content;
 	return (NULL);
@@ -45,7 +32,7 @@ t_camera	*init_cam(char *content)
 
 t_scene	*init_scene(char *file)
 {
-	char		*content;
+	char		**content;
 	t_scene		*ret;
 
 	content = check_file(file);

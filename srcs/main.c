@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 09:43:37 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/11 21:37:19 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/11 23:01:44 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,21 @@
 int	get_col(int R, int G, int B)
 {
 	return (R << 24 | G << 16 | B << 8);
+}
+
+int	*compute_scene(t_scene *scene)
+{
+	(void)scene;
+	return (NULL);
+}
+
+int	quit( t_data *data )
+{
+	mlx_destroy_image(data->mlx, data->img);
+	mlx_destroy_window(data->mlx, data->win);
+	mlx_destroy_display(data->mlx);
+	free(data->mlx);
+	exit(1);
 }
 
 int	main(int ac, char **av)
@@ -33,12 +48,12 @@ int	main(int ac, char **av)
 	if (!scene)
 		ft_puterror("Corrupted file");
 	if (!scene)
-		return (1);
+		quit(&img);
 	cols = compute_scene(scene);
 	if (!cols)
 		ft_puterror("Raycast failed");
 	if (!cols)
-		return (1);
+		quit(&img);
 	ft_fill_screen(&img, NULL);
 	mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
 	mlx_hook(img.win, 2, 1L << 0, end_mlx, &img);

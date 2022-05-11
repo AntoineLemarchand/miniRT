@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/11 21:36:04 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/11 22:56:08 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <math.h>
+# include <fcntl.h>
 # include "libft.h"
 # include "mlx.h"
 
@@ -103,9 +104,9 @@ typedef struct s_cylinder {
 
 // scene obj
 typedef struct s_objs {
-	int		type;
-	void	*val;
-	s_objs	*next;
+	int				type;
+	void			*val;
+	struct s_objs	*next;
 }	t_objs;
 
 typedef struct s_scene {
@@ -113,6 +114,9 @@ typedef struct s_scene {
 	t_objs		*lights;
 	t_objs		*shapes;
 }	t_scene;
+
+// get_next_line.c
+char	*get_next_line(int fd);
 
 // obj_utils.c
 void	ft_puterror(char *err);
@@ -122,6 +126,10 @@ int		ft_fill_screen(t_data *data, int *rays);
 int		end_mlx(int keycode, t_data *data);
 int		end_virtual_mlx(t_data *data);
 void	ft_initdata(t_data *data, char *name);
+
+// init_utils.c
+void	free_array(char **arr);
+int		arrlen(char **arr);
 
 // vec_basic.c
 t_vec	*new_vec(float x, float y, float z);
@@ -136,5 +144,12 @@ t_vec	*vec_cross_product(t_vec *v1, t_vec *v2);
 // free_utils.c
 void	free_objs(t_objs *objs);
 void	free_scene(t_scene *scene);
+void	free_array(char **arr);
+
+// init_file.c
+char	**check_file(char *file);
+
+// init_scene.c
+t_scene	*init_scene(char *file);
 
 #endif

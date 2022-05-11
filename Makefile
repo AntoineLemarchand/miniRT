@@ -21,8 +21,13 @@ endef
 SRCS		= $(addprefix srcs/, \
 				vectors/vec_basic.c \
 				vectors/vec_alg.c \
+				utils/get_next_line.c \
 				utils/obj_utils.c \
 				utils/mlx_utils.c \
+				utils/init_utils.c \
+				utils/free_utils.c \
+				init/init_file.c \
+				init/init_scene.c \
 			  	main.c \
 				)
 
