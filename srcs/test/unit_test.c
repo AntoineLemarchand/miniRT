@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 10:32:25 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/11 11:52:39 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/11 14:04:42 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_slen(char *s)
 
 int	almost_equal(float f1, float f2, float precision)
 {
-	return ( f1 > f2 - precision && f1 < f2 + precision);
+	return (f1 > f2 - precision && f1 < f2 + precision);
 }
 
 int	run_test(int (*f)( void ))
