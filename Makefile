@@ -56,9 +56,9 @@ CC			= cc
 
 CFLAGS		= -Wall -Wextra -Werror -g
 
-CPPFLAGS	= -Ilibft/includes -I minilibx/ -Iincludes
+CPPFLAGS	= -Ilibs/libft/includes/ -Ilibs/minilibx/ -Iincludes
 
-LIBS		= ./libft/libft.a minilibx/libmlx_Linux.a -lXext -lX11 -lm
+LIBS		= libs/libft/libft.a libs/minilibx/libmlx_Linux.a -lXext -lX11 -lm
 
 
 
@@ -66,13 +66,13 @@ LIBS		= ./libft/libft.a minilibx/libmlx_Linux.a -lXext -lX11 -lm
 				$(call compiling,$<,$(<:.c=.o),0)
 
 ${NAME}:		$(OBJS)
-				$(call building,libft)
-				$(call building,minilibx)
+				$(call building,libs/libft)
+				$(call building,libs/minilibx)
 				$(call finishing,$(NAME), $(OBJS))
 
 ${NAME_TEST}:	$(OBJS_TEST)
-				$(call building,libft)
-				$(call building,minilibx)
+				$(call building,libs/libft)
+				$(call building,libs/minilibx)
 				$(call finishing,$(NAME_TEST), $(OBJS_TEST))
 
 all:		$(NAME)
@@ -84,8 +84,8 @@ clean:
 				$(call removing,$(OBJS_TEST))
 
 fclean:		clean
-				$(call cleaning,libft,fclean)
-				$(call cleaning,minilibx,clean)
+				$(call cleaning,libs/libft,fclean)
+				$(call cleaning,libs/minilibx,clean)
 				$(call removing,${NAME})
 				$(call removing,${NAME_TEST})
 

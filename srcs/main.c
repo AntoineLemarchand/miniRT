@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 09:43:37 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/11 23:01:44 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/12 11:11:58 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,20 @@ int	quit( t_data *data )
 
 int	main(int ac, char **av)
 {
-	t_data	img;
+	//t_data	img;
 	t_scene	*scene;
-	int		*cols;
+	//int		*cols;
 
 	if (ac != 2)
 	{
 		ft_puterror("Please enter the name of a .rt file only");
 		return (1);
 	}
-	ft_initdata(&img, av[1]);
+	//ft_initdata(&img, av[1]);
 	scene = init_scene(av[1]);
 	if (!scene)
 		ft_puterror("Corrupted file");
+	/*
 	if (!scene)
 		quit(&img);
 	cols = compute_scene(scene);
@@ -59,4 +60,5 @@ int	main(int ac, char **av)
 	mlx_hook(img.win, 2, 1L << 0, end_mlx, &img);
 	mlx_hook(img.win, 33, 1L << 17, end_virtual_mlx, &img);
 	mlx_loop(img.mlx);
+	*/
 }

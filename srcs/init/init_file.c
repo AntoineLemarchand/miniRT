@@ -6,40 +6,66 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 21:37:24 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/11 22:52:45 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/12 13:39:28 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
+static int	is_all_blank(char *line)
+{
+	int	is_all_blank;
+	int	i;
+
+	is_all_blank = 1;
+	i = 0;
+	while (line[i])
+	{
+		if (!(line[i] == ' ' || (line[i] >= '\t' && line[i] <= '\r')))
+			is_all_blank = 0;
+		i++;
+	}
+	return (is_all_blank);
+}
+
+static char	*get_next_word(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] && (line[i] == ' ' || line[i] <= '\r' || line[i] >= '\t'))
+		i++;
+	return (line + i);
+}
+
 static int	check_line(char *line)
 {
-	(void)line;
+	get_next_word(line);
 	return (0);
 }
 
-static int	add_line(char ***arr, char *line)
+static char	**add_line(char **arr, char *line)
 {
 	int		size;
+	int		i;
 	char	**ret;
-	
-	if (!*arr)
+
+	if (!arr)
 		size = 0;
 	else
-		size = arrlen(*arr);
-	ret = ft_calloc(sizeof(arr), size + 2);
-	if (!ret)
-		return (1);
-	while (size)
+		size = arrlen(arr);
+	ret = ft_calloc(sizeof(char *), size + 2);
+	i = 0;
+	while (ret && i < size)
 	{
-		size--;
-		ret[size] = *arr[size];
+		ret[i] = arr[i];
+		i++;
 	}
-	ret[arrlen(*arr)] = line;
-	if (*arr)
-		free(*arr);
-	*arr = ret;
-	return (0);
+	if (arr)
+		free(arr);
+	if (ret)
+		ret[size] = line;
+	return (ret);
 }
 
 char	**check_file(char *file)
@@ -49,13 +75,15 @@ char	**check_file(char *file)
 	char	*line;
 
 	fd = open(file, O_RDONLY);
-	ret = NULL;
 	if (fd == -1)
 		return (NULL);
+	ret = NULL;
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (check_line(line), add_line(&ret, line))
+		if (!is_all_blank(line))
+			ret = add_line(ret, line);
+		if (!ret || check_line(line))
 		{
 			if (ret)
 				free_array(ret);

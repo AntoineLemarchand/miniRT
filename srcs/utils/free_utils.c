@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 21:35:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/11 22:56:35 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/12 13:40:45 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ void	free_scene(t_scene *scene)
 {
 	if (scene)
 	{
-		if (scene->lights)
-			free_objs(scene->lights);
+		if (scene->light)
+			free(scene->light);
+		if (scene->ambient)
+			free(scene->ambient);
 		if (scene->shapes)
 			free_objs(scene->shapes);
 		if (scene->cam)
@@ -51,4 +53,3 @@ void	free_scene(t_scene *scene)
 		free(scene);
 	}
 }
-

@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:13:09 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/10 15:08:10 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/11 14:14:39 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ two arguments are needed shapes and lights
 119 while has not hit any shape or light
 127 for each light and ambient objects shoot a shadow ray (lights[i])
 ratio += computeshadowray(&ray_point, light[i].position)
-return value: color of shape hit by primary ray * ratio
+return value: getcol(getR(shape.col), getR(shape.col), getR(shape.col)) * ratio
 */
 int	compute_primary_ray(t_vec *origin, t_vec *offset)
 {
@@ -159,3 +159,4 @@ int	*compute_rays(t_camera cam)
 	}
 	return(computed_ray);
 }
+

@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 21:40:15 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/11 22:58:25 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/12 13:40:34 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ static int	ft_loadstatic(int fd, char **remain)
 	char	*tmp;
 
 	bytes_read = 1;
-	while (bytes_read && !ft_strchr(remain[fd], '\n'))
+	while (bytes_read && (!remain[fd] || !ft_strchr(remain[fd], '\n')))
 	{
-		tmp = malloc(51);
+		tmp = malloc(50 + 1);
 		if (!tmp)
 			return (1);
 		bytes_read = read(fd, tmp, 50);
@@ -41,7 +41,7 @@ static int	ft_loadstatic(int fd, char **remain)
 	return (0);
 }
 
-static int ft_update_remain(int fd, char **remain, int newline_index)
+static int	ft_update_remain(int fd, char **remain, int newline_index)
 {
 	char	*newremain;
 
@@ -86,7 +86,7 @@ char	*get_next_line(int fd)
 	static char	*remain[1024];
 	char		*buff;
 
-	if (fd < 0)
+	if (fd < 0 || 50 <= 0)
 		return (NULL);
 	if (ft_loadstatic(fd, remain))
 		return (NULL);

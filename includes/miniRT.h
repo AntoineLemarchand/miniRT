@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/11 22:56:08 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/12 11:53:08 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,10 @@ typedef struct s_cylinder {
 }	t_cylinder;
 
 // scene obj
+
+enum	shape_type { NONE, SPHERE, PLANE, CYLINDER };
+enum	scene_type { AMBIENT, LIGHT };
+
 typedef struct s_objs {
 	int				type;
 	void			*val;
@@ -111,7 +115,8 @@ typedef struct s_objs {
 
 typedef struct s_scene {
 	t_camera	*cam;
-	t_objs		*lights;
+	t_ambient	*ambient;
+	t_light		*light;
 	t_objs		*shapes;
 }	t_scene;
 

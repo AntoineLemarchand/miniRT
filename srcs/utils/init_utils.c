@@ -6,15 +6,15 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 22:47:07 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/11 22:55:43 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/12 13:40:21 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int		arrlen(char **arr)
+int	arrlen(char **arr)
 {
-	int size;
+	int	size;
 
 	size = 0;
 	while (arr[size])
