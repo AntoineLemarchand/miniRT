@@ -26,7 +26,11 @@ SRCS		= $(addprefix srcs/, \
 				utils/mlx_utils.c \
 				utils/init_utils.c \
 				utils/free_utils.c \
+				init/check_shape.c \
+				init/check_objs.c \
 				init/init_file.c \
+				init/init_shape.c \
+				init/init_shapes.c \
 				init/init_scene.c \
 			  	main.c \
 				)
@@ -36,9 +40,11 @@ SRCS_TEST	= $(addprefix srcs/, \
 				vectors/vec_alg.c \
 				utils/obj_utils.c \
 				utils/mlx_utils.c \
+				utils/init_utils.c \
 				test/unit_test.c \
 				test/vector_basic_test.c \
 				test/vector_alg_test.c \
+				test/atof_test.c \
 			  	test/main.c \
 				)
 
@@ -54,7 +60,7 @@ RM			= rm -f
 
 CC			= cc
 
-CFLAGS		= -Wall -Wextra -Werror -g
+CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
 
 CPPFLAGS	= -Ilibs/libft/includes/ -Ilibs/minilibx/ -Iincludes
 

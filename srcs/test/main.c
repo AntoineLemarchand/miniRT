@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 10:32:45 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/11 14:04:14 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/12 23:39:13 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	test_vec_divide( void );
 int	test_vec_normalize( void );
 int	test_vec_dot_product( void );
 int	test_vec_cross_product( void );
+
+int	ft_atof_test( void );
 
 void	test_vec_basic( void )
 {
@@ -41,5 +43,6 @@ int	main( void )
 {
 	test_vec_basic();
 	test_vec_alg();
+	run_test(ft_atof_test);
 	return (0);
 }

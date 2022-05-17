@@ -6,43 +6,11 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 21:37:24 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/12 13:39:28 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/13 18:52:10 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-static int	is_all_blank(char *line)
-{
-	int	is_all_blank;
-	int	i;
-
-	is_all_blank = 1;
-	i = 0;
-	while (line[i])
-	{
-		if (!(line[i] == ' ' || (line[i] >= '\t' && line[i] <= '\r')))
-			is_all_blank = 0;
-		i++;
-	}
-	return (is_all_blank);
-}
-
-static char	*get_next_word(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] && (line[i] == ' ' || line[i] <= '\r' || line[i] >= '\t'))
-		i++;
-	return (line + i);
-}
-
-static int	check_line(char *line)
-{
-	get_next_word(line);
-	return (0);
-}
 
 static char	**add_line(char **arr, char *line)
 {
@@ -68,6 +36,27 @@ static char	**add_line(char **arr, char *line)
 	return (ret);
 }
 
+static int	check_line(char *line, int len)
+{
+	if (is_all_blank(line))
+		return (0);
+	len = word_len(line);
+	line = get_next_word(line, 0);
+	if (len == 1 && *line == 'C')
+		return (check_camera_line(get_next_word(line, 1)));
+	else if (len == 1 && *line == 'A')
+		return (check_ambient_line(get_next_word(line, 1)));
+	else if (len == 1 && *line == 'L')
+		return (check_light_line(get_next_word(line, 1)));
+	else if (len == 2 && !ft_strncmp(line, "sp", 2))
+		return (check_sphere_line(get_next_word(line, 1)));
+	else if (len == 2 && !ft_strncmp(line, "pl", 2))
+		return (check_plane_line(get_next_word(line, 1)));
+	else if (len == 2 && !ft_strncmp(line, "cy", 2))
+		return (check_cylinder_line(get_next_word(line, 1)));
+	return (1);
+}
+
 char	**check_file(char *file)
 {
 	int		fd;
@@ -83,13 +72,14 @@ char	**check_file(char *file)
 	{
 		if (!is_all_blank(line))
 			ret = add_line(ret, line);
-		if (!ret || check_line(line))
+		if (!ret || check_line(line, 0))
 		{
 			if (ret)
 				free_array(ret);
-			free(line);
 			return (NULL);
 		}
+		if (is_all_blank(line))
+			free(line);
 		line = get_next_line(fd);
 	}
 	return (ret);

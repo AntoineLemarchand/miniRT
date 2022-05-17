@@ -6,16 +6,11 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 09:43:37 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/12 11:11:58 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/13 18:26:06 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-int	get_col(int R, int G, int B)
-{
-	return (R << 24 | G << 16 | B << 8);
-}
 
 int	*compute_scene(t_scene *scene)
 {
@@ -47,6 +42,7 @@ int	main(int ac, char **av)
 	scene = init_scene(av[1]);
 	if (!scene)
 		ft_puterror("Corrupted file");
+	free_scene(scene);
 	/*
 	if (!scene)
 		quit(&img);
