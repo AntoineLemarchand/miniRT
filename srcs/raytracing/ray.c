@@ -6,13 +6,13 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:13:09 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/11 14:14:39 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/18 15:04:05 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static int	arrlen(int	*rays)
+static int	intptrlen(int	*rays)
 {
 	int	size;
 
@@ -22,37 +22,20 @@ static int	arrlen(int	*rays)
 	return (size);
 }
 
-t_ray	*new_ray(t_vec *position, t_vec *offset)
+static int	*add_computed_ray(int *rays, int computed_ray)
 {
-	t_ray	*ret;
+	int	size;
+	int	i;
+	int	*ret;
 
-	if (!position || !offset)
-		return (NULL);
-	ret = malloc(sizeof(t_ray));
-	if (!ret)
-		return (NULL);
-	ret.position.x = position->x;
-	ret.position.y = position->y;
-	ret.position.z = position->z;
-	ret.offset.x = offset->x;
-	ret.offset.y = offset->y;
-	ret.offset.z = offset->z;
-	return (ret);
-}
-
-static int	*add_computed_ray(int *arr, int computed_ray)
-{
-	int		size;
-	int		i;
-	t_ray	*ret;
-
-	if (!arr)
-		return (NULL);
-	size = arrlen(rays);
-	ret = ft_calloc((size + 2) * sizeof(t_ray));
+	if (!rays)
+		size = 0;
+	else
+		size = intptrlen(rays);
+	ret = ft_calloc(size + 2, sizeof(int));
 	if (!ret)
 	{
-		free(computed_ray);
+		free(rays);
 		return (NULL);
 	}
 	i = 0;
@@ -62,6 +45,7 @@ static int	*add_computed_ray(int *arr, int computed_ray)
 		i++;
 	}
 	ret[i] = computed_ray;
+	free(rays);
 	return (ret);
 }
 
@@ -72,7 +56,6 @@ static int	*add_computed_ray(int *arr, int computed_ray)
 two arguments are needed shapes and lights
 89 while has not hit any shape or light
 return value: 0 if shape or attenuated ratio if light
-*/
 int	compute_shadow_ray(t_vec *point, t_vec	*position)
 {
 	int		t;
@@ -81,12 +64,12 @@ int	compute_shadow_ray(t_vec *point, t_vec	*position)
 
 	ray.origin = *point;
 	ray.offset = *position;
-	vec_normalize(ray.offset);
+	vec_normalize(&ray.offset);
 	ray_point.x = ray.origin.x;
 	ray_point.y = ray.origin.y;
 	ray_point.z = ray.origin.z;
 	t = 1;
-	while (1 < 100)
+	while (t < MAX_DIST)
 	{
 		ray_point.x = ray.origin.x + t * ray.offset.x ;
 		ray_point.y = ray.origin.y + t * ray.offset.x ;
@@ -95,6 +78,7 @@ int	compute_shadow_ray(t_vec *point, t_vec	*position)
 	}
 	return (1);
 }
+*/
 
 /*
 two arguments are needed shapes and lights
@@ -103,60 +87,66 @@ two arguments are needed shapes and lights
 ratio += computeshadowray(&ray_point, light[i].position)
 return value: getcol(getR(shape.col), getR(shape.col), getR(shape.col)) * ratio
 */
-int	compute_primary_ray(t_vec *origin, t_vec *offset)
+int	compute_primary_ray(t_ray *ray, t_scene *scene)
 {
 	int		t;
-	float	ratio;
-	t_ray	ray;
-	t_vec	ray_point;
+	//float	ratio;
+	t_vec	primary_ray;
 
-	ray.origin = *origin;
-	ray.offset = *offset;
-	ray_point.x = ray.origin.x;
-	ray_point.y = ray.origin.y;
-	ray_point.z = ray.origin.z;
 	t = 1;
-	while (1 < 100)
+	(void)primary_ray;
+	(void)scene;
+	while (/*!shape_hit(ray_point, scene) &&*/ t > MAX_DIST)
 	{
-		ray_point.x = ray.origin.x + t * ray.offset.x ;
-		ray_point.y = ray.origin.y + t * ray.offset.x ;
-		ray_point.z = ray.origin.z + t * ray.offset.x ;
+		primary_ray.x = ray->origin.x + t * ray->offset.x ;
+		primary_ray.y = ray->origin.y + t * ray->offset.x ;
+		primary_ray.z = ray->origin.z + t * ray->offset.x ;
 		t++;
 	}
 	return (0x00FF0000);
 }
 
-/*
-147 - 149: origin.x = camera.position.x
-      153: offset.x = camera.fov
-*/
-int	*compute_rays(t_camera cam)
+t_ray	*init_ray(t_camera *camera, int x, int y)
+{
+	t_ray	*ret;
+
+	ret = malloc(sizeof(t_ray));
+	if (!ret)
+		return (NULL);
+	ret->origin.x = camera->position.x;
+	ret->origin.y = camera->position.y;
+	ret->origin.z = camera->position.z;
+	ret->offset.x = x;
+	ret->offset.y = y;
+	ret->offset.z = camera->fov;
+	vec_normalize(&ret->offset);
+	return (ret);
+}
+
+int	*compute_rays(t_scene *scene)
 {
 	int		y;
 	int		x;
+	t_ray	*ray;
 	int		*computed_rays;
-	t_vec	origin;
-	t_vec	offset;
 
 
-	rays = NULL;
+	computed_rays = NULL;
 	y = 0;
 	while (y < RES_X)
 	{
 		x = 0;
 		while(x < RES_Y)
 		{
-			origin.x = origin.y = origin.z = 0;
-			offset.x = x;
-			offset.x = y;
-			offset.z = 80;
-			vec_normalize(offset);
-			computed_ray = add_computed_ray(computed_ray,
-					compute_primary_ray(origin, offset));
-			if (!computed_ray)
+			ray = init_ray(scene->cam, x, y);
+			computed_rays = add_computed_ray(computed_rays,
+					compute_primary_ray(ray, scene));
+			free(ray);
+			if (!computed_rays)
 				return (NULL);
+			x++;
 		}
+		y++;
 	}
-	return(computed_ray);
+	return(computed_rays);
 }
-

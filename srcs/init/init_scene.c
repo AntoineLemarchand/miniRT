@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 21:37:24 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/13 18:49:39 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:00:35 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ t_scene	*init_scene(char *file)
 	scene->ambient = init_ambient(content);
 	scene->light = init_light(content);
 	scene->shapes = init_shapes(content);
+	free_array(content);
 	if (!scene->cam || !scene->light || !scene->ambient
 		|| !scene->shapes)
 	{

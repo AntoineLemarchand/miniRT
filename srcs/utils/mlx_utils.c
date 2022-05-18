@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 10:25:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/10 14:58:02 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/18 14:56:46 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	end_mlx(int keycode, t_data *data)
 		mlx_destroy_window(data->mlx, data->win);
 		mlx_destroy_display(data->mlx);
 		free(data->mlx);
+		free(data->cols);
 		exit(0);
 	}
 	return (0);
@@ -31,6 +32,7 @@ int	end_virtual_mlx(t_data *data)
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);
+	free(data->cols);
 	exit(0);
 }
 
@@ -51,7 +53,7 @@ static void	ft_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int	ft_fill_screen(t_data *data, int *cols)
+int	ft_fill_screen(t_data *data)
 {
 	int	y;
 	int	x;
@@ -62,7 +64,7 @@ int	ft_fill_screen(t_data *data, int *cols)
 		x = 0;
 		while (x < RES_Y)
 		{
-			ft_mlx_pixel_put(data, y, x, cols[y * RES_X + x]);
+			ft_mlx_pixel_put(data, y, x, data->cols[y * RES_X + x]);
 			x++;
 		}
 		y++;

@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 21:35:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/13 18:45:31 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/17 13:59:01 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,15 @@ void	free_scene(t_scene *scene)
 	if (scene)
 	{
 		if (scene->light)
+		{
+			free(scene->light->col);
 			free(scene->light);
+		}
 		if (scene->ambient)
+		{
+			free(scene->ambient->col);
 			free(scene->ambient);
+		}
 		if (scene->shapes)
 			free_objs(&scene->shapes);
 		if (scene->cam)

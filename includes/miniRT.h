@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/13 18:46:19 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/18 14:57:00 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@
 # include "libft.h"
 # include "mlx.h"
 
-# define RES_X 800
-# define RES_Y 800
+# define RES_X 128
+# define RES_Y 128
+
+# define MAX_DIST 800
 
 # define ESC 65307
 
@@ -46,13 +48,15 @@ typedef struct s_ray {
 
 // mlx struct
 typedef struct s_data {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
+	void			*mlx;
+	void			*win;
+	void			*img;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+	struct s_scene	*scene;
+	int				*cols;
 }	t_data;
 
 // primary objs
@@ -130,7 +134,7 @@ t_vec	get_vec_range(char *content);
 int	*get_col_range(char *content);
 
 // mlx_utils.c
-int		ft_fill_screen(t_data *data, int *rays);
+int		ft_fill_screen(t_data *data);
 int		end_mlx(int keycode, t_data *data);
 int		end_virtual_mlx(t_data *data);
 void	ft_initdata(t_data *data, char *name);
@@ -183,5 +187,8 @@ void	add_cylinders_back(t_objs *ret, char **content, char *line,
 
 // init_scene.c
 t_scene	*init_scene(char *file);
+
+// ray.c
+int	*compute_rays(t_scene *scene);
 
 #endif

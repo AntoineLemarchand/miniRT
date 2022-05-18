@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 21:37:24 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/13 18:52:10 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/17 13:57:20 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,16 @@ char	**check_file(char *file)
 	while (line)
 	{
 		if (!is_all_blank(line))
-			ret = add_line(ret, line);
-		if (!ret || check_line(line, 0))
 		{
-			if (ret)
-				free_array(ret);
-			return (NULL);
+			ret = add_line(ret, line);
+			if (!ret || check_line(line, 0))
+			{
+				if (ret)
+					free_array(ret);
+				return (NULL);
+			}
 		}
-		if (is_all_blank(line))
+		else
 			free(line);
 		line = get_next_line(fd);
 	}
