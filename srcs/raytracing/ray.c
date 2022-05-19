@@ -6,48 +6,11 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:13:09 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/18 15:04:05 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/19 09:57:00 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-static int	intptrlen(int	*rays)
-{
-	int	size;
-
-	size = 0;
-	while (rays[size])
-		size++;
-	return (size);
-}
-
-static int	*add_computed_ray(int *rays, int computed_ray)
-{
-	int	size;
-	int	i;
-	int	*ret;
-
-	if (!rays)
-		size = 0;
-	else
-		size = intptrlen(rays);
-	ret = ft_calloc(size + 2, sizeof(int));
-	if (!ret)
-	{
-		free(rays);
-		return (NULL);
-	}
-	i = 0;
-	while (i < size)
-	{
-		ret[i] = rays[i];
-		i++;
-	}
-	ret[i] = computed_ray;
-	free(rays);
-	return (ret);
-}
 
 // this is going to need a bit more work using light attenuation
 // https://www.cs.utexas.edu/~theshark/courses/cs354/lectures/cs354-4.pdf
@@ -131,19 +94,19 @@ int	*compute_rays(t_scene *scene)
 	int		*computed_rays;
 
 
-	computed_rays = NULL;
 	y = 0;
+	computed_rays = malloc(sizeof(int) * (RES_X * RES_Y));
+	if (!computed_rays)
+		return (NULL);
 	while (y < RES_X)
 	{
 		x = 0;
 		while(x < RES_Y)
 		{
 			ray = init_ray(scene->cam, x, y);
-			computed_rays = add_computed_ray(computed_rays,
-					compute_primary_ray(ray, scene));
+			computed_rays[y * RES_X + x]
+				= compute_primary_ray(ray, scene);
 			free(ray);
-			if (!computed_rays)
-				return (NULL);
 			x++;
 		}
 		y++;

@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 09:43:37 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/18 14:56:23 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/19 09:50:33 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int	*compute_scene(t_scene *scene)
 {
-	int *ret = compute_rays(scene);
+	int *ret;
+	
+	ret = compute_rays(scene);
 	return (ret);
 }
 

@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 10:25:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/18 14:56:46 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/19 09:56:23 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	end_mlx(int keycode, t_data *data)
 		mlx_destroy_display(data->mlx);
 		free(data->mlx);
 		free(data->cols);
+		free_scene(data->scene);
 		exit(0);
 	}
 	return (0);
@@ -33,6 +34,7 @@ int	end_virtual_mlx(t_data *data)
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);
 	free(data->cols);
+	free_scene(data->scene);
 	exit(0);
 }
 

@@ -61,7 +61,7 @@ RM			= rm -f
 
 CC			= cc
 
-CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -g
 
 CPPFLAGS	= -Ilibs/libft/includes/ -Ilibs/minilibx/ -Iincludes
 
