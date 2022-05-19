@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/19 09:48:49 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/19 09:57:42 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "libft.h"
 # include "mlx.h"
 
-# define RES_X 128
-# define RES_Y 128
+# define RES_X 800
+# define RES_Y 800
 
 # define MAX_DIST 800
 
