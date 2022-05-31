@@ -6,19 +6,11 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 09:43:37 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/19 09:50:33 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/31 10:56:38 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-int	*compute_scene(t_scene *scene)
-{
-	int *ret;
-	
-	ret = compute_rays(scene);
-	return (ret);
-}
 
 int	quit( t_data *data)
 {
@@ -50,13 +42,11 @@ int	main(int ac, char **av)
 		ft_puterror("Corrupted file");
 		quit(&img);
 	}
-	img.cols = compute_scene(img.scene);
-	if (!img.cols)
+	if (compute_rays(img.scene, &img))
 	{
 		ft_puterror("Raycast failed");
 		quit(&img);
 	}
-	ft_fill_screen(&img);
 	mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
 	mlx_hook(img.win, 2, 1L << 0, end_mlx, &img);
 	mlx_hook(img.win, 33, 1L << 17, end_virtual_mlx, &img);

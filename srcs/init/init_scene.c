@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 21:37:24 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/25 11:20:03 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/31 13:35:15 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ t_scene	*init_scene(char *file)
 	char		**content;
 	t_scene		*scene;
 
-	content = check_file(file);
+	content = check_file(file, NULL);
 	if (content == NULL)
 		return (NULL);
 	scene = malloc(sizeof(t_scene));

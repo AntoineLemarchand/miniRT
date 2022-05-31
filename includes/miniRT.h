@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/24 21:38:19 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/31 13:35:46 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ typedef struct s_ray {
 	t_vec	offset;
 }	t_ray;
 
+// to keep track of distances
+typedef struct s_pixel {
+	int		col;
+	float	dist;
+}	t_pixel;
+
 // mlx struct
 typedef struct s_data {
 	void			*mlx;
@@ -56,7 +62,6 @@ typedef struct s_data {
 	int				line_length;
 	int				endian;
 	struct s_scene	*scene;
-	int				*cols;
 }	t_data;
 
 // primary objs
@@ -134,10 +139,10 @@ t_vec	get_vec_range(char *content);
 int	*get_col_range(char *content);
 
 // mlx_utils.c
-int		ft_fill_screen(t_data *data);
 int		end_mlx(int keycode, t_data *data);
 int		end_virtual_mlx(t_data *data);
 void	ft_initdata(t_data *data, char *name);
+void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 // init_utils.c
 int		arrlen(char **arr);
@@ -173,7 +178,7 @@ int	check_plane_line(char *line);
 int	check_cylinder_line(char *line);
 
 // init_file.c
-char	**check_file(char *file);
+char	**check_file(char *file, char **ret);
 
 // init_shape.c
 t_sphere	*new_sphere(char *line);
@@ -190,6 +195,6 @@ void	add_cylinders_back(t_objs *ret, char **content, char *line,
 t_scene	*init_scene(char *file);
 
 // ray.c
-int	*compute_rays(t_scene *scene);
+int		compute_rays(t_scene *scene, t_data *data);
 
 #endif

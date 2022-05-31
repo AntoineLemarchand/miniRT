@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 22:47:07 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/13 17:56:54 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/31 13:33:44 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ char	*get_next_word(char *line, int pass_word)
 	i = 0;
 	if (pass_word)
 		while (line[i] && !(line[i] == ' ' || (line[i] <= '\r'
-				&& line[i] >= '\t')))
+					&& line[i] >= '\t')))
 			i++;
 	while (line[i] && (line[i] == ' ' || (line[i] <= '\r' && line[i] >= '\t')))
 		i++;
 	return (line + i);
 }
 
-int		word_len(char *line)
+int	word_len(char *line)
 {
 	int	i;
 

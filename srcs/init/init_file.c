@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 21:37:24 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/17 13:57:20 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/31 13:34:54 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,14 @@ static int	check_line(char *line, int len)
 	return (1);
 }
 
-char	**check_file(char *file)
+char	**check_file(char *file, char **ret)
 {
 	int		fd;
-	char	**ret;
 	char	*line;
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (NULL);
-	ret = NULL;
 	line = get_next_line(fd);
 	while (line)
 	{
