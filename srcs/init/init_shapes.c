@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:37:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/13 18:48:25 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/25 11:20:54 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	add_planes_back(t_objs *ret, char **content, char *line, t_objs *new)
 
 void	add_cylinders_back(t_objs *ret, char **content, char *line, t_objs *new)
 {
-	while (*(++content - 1))
+	while (*content)
 	{
 		line = get_next_word(*content, 0);
 		if (!ft_strncmp(line, "cy", 2))

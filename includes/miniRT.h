@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/19 09:57:42 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/24 21:38:19 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ double	ft_atof(const char *s);
 t_vec	*new_vec(float x, float y, float z);
 void	vec_multiply(t_vec *vec, float f);
 void	vec_divide(t_vec *vec, float f);
+t_vec	*vec_reduce(t_vec *v1, t_vec *v2);
 
 // vec_alg.c
 void	vec_normalize(t_vec *vec);
