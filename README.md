@@ -7,6 +7,7 @@ A 42 project that aims to build a very basic ray tracer using the school homemad
 ./miniRT <filename>.rt
 ```
 The program reads files with a .rt extension which lines follows theses rules:
+(All single upcase letter must have one occurence)
 **each line is either:**
 1. A: Ambient lightning followed by
 - an ambient lightning ratio [0.0, 1.0]
