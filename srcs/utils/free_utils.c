@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 21:35:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/31 10:03:48 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/31 14:06:13 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ void	free_array(char **arr)
 
 static void	free_obj(t_objs *obj)
 {
-	if (obj->type == AMBIENT)
+	if (obj->type == ambient)
 		free(((t_ambient *)(obj->val))->col);
-	else if (obj->type == LIGHT)
+	else if (obj->type == light)
 		free(((t_light *)(obj->val))->col);
-	else if (obj->type == SPHERE)
+	else if (obj->type == sphere)
 		free(((t_sphere *)(obj->val))->col);
-	else if (obj->type == PLANE)
+	else if (obj->type == plane)
 		free(((t_plane *)(obj->val))->col);
-	else if (obj->type == CYLINDER)
+	else if (obj->type == cylinder)
 		free(((t_cylinder *)(obj->val))->col);
 	if (obj->val)
 		free(obj->val);

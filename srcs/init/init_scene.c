@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 21:37:24 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/31 13:35:15 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/31 14:06:32 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static t_objs	*init_shapes(char **content)
 	ret = malloc(sizeof(t_objs));
 	if (!ret)
 		return (NULL);
-	ret->type = NONE;
+	ret->type = none;
 	ret->val = NULL;
 	ret->next = NULL;
 	add_spheres_back(ret, content, NULL, NULL);

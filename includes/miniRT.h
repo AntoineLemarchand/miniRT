@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/31 13:35:46 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/31 14:08:13 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "libft.h"
 # include "mlx.h"
 
-# define RES_X 800
-# define RES_Y 800
+# define RES_X 1360
+# define RES_Y 1080
 
 # define MAX_DIST 800
 
@@ -113,7 +113,7 @@ typedef struct s_cylinder {
 
 // scene obj
 
-enum	scene_type { NONE, SPHERE, PLANE, CYLINDER, AMBIENT, LIGHT };
+enum	e_scene_type { none, sphere, plane, cylinder, ambient, light };
 
 typedef struct s_objs {
 	int				type;
@@ -129,56 +129,56 @@ typedef struct s_scene {
 }	t_scene;
 
 // get_next_line.c
-char	*get_next_line(int fd);
+char		*get_next_line(int fd);
 
 // obj_utils.c
-void	ft_puterror(char *err);
-char	*get_content_line(char **content, const char *toFind);
-int		get_col(int R, int G, int B);
-t_vec	get_vec_range(char *content);
-int	*get_col_range(char *content);
+void		ft_puterror(char *err);
+char		*get_content_line(char **content, const char *toFind);
+int			get_col(int R, int G, int B);
+t_vec		get_vec_range(char *content);
+int			*get_col_range(char *content);
 
 // mlx_utils.c
-int		end_mlx(int keycode, t_data *data);
-int		end_virtual_mlx(t_data *data);
-void	ft_initdata(t_data *data, char *name);
-void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
+int			end_mlx(int keycode, t_data *data);
+int			end_virtual_mlx(t_data *data);
+void		ft_initdata(t_data *data, char *name);
+void		ft_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 // init_utils.c
-int		arrlen(char **arr);
-int		is_all_blank(char *line);
-char	*get_next_word(char *line, int pass_word);
-int		word_len(char *line);
-double	ft_atof(const char *s);
+int			arrlen(char **arr);
+int			is_all_blank(char *line);
+char		*get_next_word(char *line, int pass_word);
+int			word_len(char *line);
+double		ft_atof(const char *s);
 
 // vec_basic.c
-t_vec	*new_vec(float x, float y, float z);
-void	vec_multiply(t_vec *vec, float f);
-void	vec_divide(t_vec *vec, float f);
-t_vec	*vec_reduce(t_vec *v1, t_vec *v2);
+t_vec		*new_vec(float x, float y, float z);
+void		vec_multiply(t_vec *vec, float f);
+void		vec_divide(t_vec *vec, float f);
+t_vec		*vec_reduce(t_vec *v1, t_vec *v2);
 
 // vec_alg.c
-void	vec_normalize(t_vec *vec);
-float	vec_dot_product(t_vec *v1, t_vec *v2);
-t_vec	*vec_cross_product(t_vec *v1, t_vec *v2);
+void		vec_normalize(t_vec *vec);
+float		vec_dot_product(t_vec *v1, t_vec *v2);
+t_vec		*vec_cross_product(t_vec *v1, t_vec *v2);
 
 // free_utils.c
-void	free_objs(t_objs **objs);
-void	free_scene(t_scene *scene);
-void	free_array(char **arr);
+void		free_objs(t_objs **objs);
+void		free_scene(t_scene *scene);
+void		free_array(char **arr);
 
-// check_objs.c
-int	check_camera_line(char *line);
-int	check_ambient_line(char *line);
-int	check_light_line(char *line);
+//	check_objs.c
+int			check_camera_line(char *line);
+int			check_ambient_line(char *line);
+int			check_light_line(char *line);
 
 // check_shape.c
-int	check_sphere_line(char *line);
-int	check_plane_line(char *line);
-int	check_cylinder_line(char *line);
+int			check_sphere_line(char *line);
+int			check_plane_line(char *line);
+int			check_cylinder_line(char *line);
 
 // init_file.c
-char	**check_file(char *file, char **ret);
+char		**check_file(char *file, char **ret);
 
 // init_shape.c
 t_sphere	*new_sphere(char *line);
@@ -186,15 +186,20 @@ t_plane		*new_plane(char *line);
 t_cylinder	*new_cylinder(char *line);
 
 // init_shapes.c
-void	add_spheres_back(t_objs *ret, char **content, char *line, t_objs *new);
-void	add_planes_back(t_objs *ret, char **content, char *line, t_objs *new);
-void	add_cylinders_back(t_objs *ret, char **content, char *line,
-	t_objs *new);
+void		add_spheres_back(t_objs *ret, char **content, char *line,
+				t_objs *new);
+void		add_planes_back(t_objs *ret, char **content, char *line,
+				t_objs *new);
+void		add_cylinders_back(t_objs *ret, char **content, char *line,
+				t_objs *new);
 
 // init_scene.c
-t_scene	*init_scene(char *file);
+t_scene		*init_scene(char *file);
+
+// trace_shapes.c
+float		get_sphere_dist(t_ray *ray, t_sphere *sphere);
 
 // ray.c
-int		compute_rays(t_scene *scene, t_data *data);
+int			compute_rays(t_scene *scene, t_data *data);
 
 #endif

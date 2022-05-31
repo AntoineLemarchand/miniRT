@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:37:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/25 11:20:54 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/05/31 14:06:27 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	add_spheres_back(t_objs *ret, char **content, char *line, t_objs *new)
 				return ;
 			}
 			new->next = NULL;
-			new->type = SPHERE;
+			new->type = sphere;
 			new->val = (void *)new_sphere(get_next_word(line, 1));
 			if (!new->val)
 			{
@@ -69,7 +69,7 @@ void	add_planes_back(t_objs *ret, char **content, char *line, t_objs *new)
 				return ;
 			}
 			new->next = NULL;
-			new->type = PLANE;
+			new->type = plane;
 			new->val = (void *)new_plane(get_next_word(line, 1));
 			if (!new->val)
 			{
@@ -98,7 +98,7 @@ void	add_cylinders_back(t_objs *ret, char **content, char *line, t_objs *new)
 				return ;
 			}
 			new->next = NULL;
-			new->type = CYLINDER;
+			new->type = cylinder;
 			new->val = (void *)new_cylinder(get_next_word(line, 1));
 			if (!new->val)
 			{
