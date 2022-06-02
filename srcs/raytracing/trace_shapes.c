@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:04:13 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/02 15:30:17 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/02 16:02:38 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,12 @@ double	get_plane_dist(t_ray *ray, t_plane *plane)
 		if (ret >= 0)
 			return (ret);
 	}
+	return (-1);
+}
+
+double	get_cylinder_dist(t_ray *ray, t_cylinder *cylinder)
+{
+	(void)ray;
+	(void)cylinder;
 	return (-1);
 }
