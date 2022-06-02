@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/02 11:53:08 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/02 15:20:55 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@
 
 // vect
 typedef struct s_vec {
-	float	x;
-	float	y;
-	float	z;
+	double	x;
+	double	y;
+	double	z;
 }	t_vec;
 
 // equation: P(t) = position + t * offset, t >= 0
@@ -72,12 +72,12 @@ typedef struct s_camera {
 }	t_camera;
 
 typedef struct s_ambient {
-	float	ratio;
+	double	ratio;
 	int		*col;
 }	t_ambient;
 
 typedef struct s_light {
-	float	ratio;
+	double	ratio;
 	t_vec	position;
 	int		*col;
 }	t_light;
@@ -86,7 +86,7 @@ typedef struct s_light {
 // sphere equation: powf(x, 2.) + powf(y, 2.) + powf(z, 2.) = diameter / 2
 typedef struct s_sphere {
 	t_vec	position;
-	float	diameter;
+	double	diameter;
 	int		*col;
 }	t_sphere;
 
@@ -106,8 +106,8 @@ typedef struct s_plane {
 typedef struct s_cylinder {
 	t_vec	position;
 	t_vec	orientation;
-	float	diameter;
-	float	height;
+	double	diameter;
+	double	height;
 	int		*col;
 }	t_cylinder;
 
@@ -197,7 +197,8 @@ void		add_cylinders_back(t_objs *ret, char **content, char *line,
 t_scene		*init_scene(char *file);
 
 // trace_shapes.c
-float		get_sphere_dist(t_ray *ray, t_sphere *sphere);
+double		get_sphere_dist(t_ray *ray, t_sphere *sphere);
+double		get_plane_dist(t_ray *ray, t_plane *plane);
 
 // ray.c
 int			compute_rays(t_scene *scene, t_data *data);

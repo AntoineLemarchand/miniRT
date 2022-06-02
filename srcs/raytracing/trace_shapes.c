@@ -6,20 +6,20 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:04:13 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/02 10:31:53 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/02 15:30:17 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
 //https://www.gabrielgambetta.com/
-float	get_sphere_dist(t_ray *ray, t_sphere *sphere)
+double	get_sphere_dist(t_ray *ray, t_sphere *sphere)
 {
 	t_vec	center;
-	float	quad[3];
-	float	discr;
-	float	ret[2];
-	float	radius;
+	double	quad[3];
+	double	discr;
+	double	ret[2];
+	double	radius;
 
 	radius = sphere->diameter / 2;
 	center.x = ray->origin.x - sphere->position.x;
@@ -31,13 +31,32 @@ float	get_sphere_dist(t_ray *ray, t_sphere *sphere)
 	discr = quad[1] * quad[1] - 4 * quad[0] * quad[2];
 	if (discr < 0)
 		return (-1);
-	ret[0] = (-1 * quad[1] + sqrtf(discr)) / (2 * quad[0]);
-	ret[1] = (-1 * quad[1] - sqrtf(discr)) / (2 * quad[0]);
+	ret[0] = (-quad[1] + sqrtf(discr)) / (2 * quad[0]);
+	ret[1] = (-quad[1] - sqrtf(discr)) / (2 * quad[0]);
 	if (ret[0] < 0)
 	{
 		if (ret[1] < 0)
 			return (-1);
 		return (ret[1]);
 	}
-	return (ret[0]);
+	return (fmin(ret[0], ret[1]));
+}
+
+double	get_plane_dist(t_ray *ray, t_plane *plane)
+{
+	double	denom;
+	double	ret;
+	t_vec	center;
+
+	denom = vec_dot_product(&plane->orientation, &ray->offset);
+	center.x = plane->position.x - ray->origin.x;
+	center.y = plane->position.y - ray->origin.y;
+	center.z = plane->position.z - ray->origin.z;
+	if (fabs(denom) > 0.0001f)
+	{
+		ret = vec_dot_product(&center, &plane->orientation) / denom;
+		if (ret >= 0)
+			return (ret);
+	}
+	return (-1);
 }

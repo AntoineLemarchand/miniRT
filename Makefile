@@ -33,8 +33,8 @@ SRCS		= $(addprefix srcs/, \
 				init/init_shapes.c \
 				init/init_scene.c \
 				raytracing/trace_shapes.c \
-				raytracing/primary_ray.c \
 				raytracing/shadow_ray.c \
+				raytracing/primary_ray.c \
 			  	main.c \
 				)
 

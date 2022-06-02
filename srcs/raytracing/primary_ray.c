@@ -6,20 +6,20 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:13:09 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/02 12:29:42 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/02 15:30:39 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-float	get_dist(t_ray *ray, t_objs *shape)
+double	get_dist(t_ray *ray, t_objs *shape)
 {
 	if (shape->type == light)
 		return (-1);
 	else if (shape->type == sphere)
 		return (get_sphere_dist(ray, (t_sphere *)shape->val));
 	else if (shape->type == plane)
-		return (-1);
+		return (get_plane_dist(ray, (t_plane *)shape->val));
 	else if (shape->type == cylinder)
 		return (-1);
 	return (-1);
@@ -29,8 +29,8 @@ t_objs	*shape_hit(t_ray *ray, t_scene *scene)
 {
 	t_objs	*ret;
 	t_objs	*curr;
-	float	curr_dist;
-	float	min_dist;
+	double	curr_dist;
+	double	min_dist;
 
 	min_dist = -1.;
 	ret = NULL;
@@ -39,7 +39,7 @@ t_objs	*shape_hit(t_ray *ray, t_scene *scene)
 	{
 		curr_dist = get_dist(ray, curr);
 		if (curr_dist >= 0
-			&& ((curr_dist > min_dist && min_dist >= 0) || min_dist < 0))
+			&& ((curr_dist < min_dist && min_dist >= 0) || min_dist < 0))
 		{
 			min_dist = curr_dist;
 			ret = curr;
@@ -78,7 +78,7 @@ int	compute_primary_ray(t_ray *ray, t_scene *scene)
 t_ray	*init_ray(t_camera *camera, int x, int y)
 {
 	t_ray	*ret;
-	float	angle;
+	double	angle;
 
 	angle = camera->fov / 2;
 	ret = malloc(sizeof(t_ray));
