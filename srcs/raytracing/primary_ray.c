@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.c                                              :+:      :+:    :+:   */
+/*   primary_ray.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:13:09 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/02 12:23:11 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/02 12:29:42 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ t_ray	*init_ray(t_camera *camera, int x, int y)
 	ret->origin.y = camera->position.y;
 	ret->origin.z = camera->position.z;
 	ret->offset.x = camera->orientation.x + (x - RES_X / 2);
-	ret->offset.y = camera->orientation.y - (y - RES_Y / 2);;
+	ret->offset.y = camera->orientation.y - (y - RES_Y / 2);
 	ret->offset.z = (sinf(90 - angle) * RES_X / 2) / sinf(angle);
 	vec_normalize(&ret->offset);
 	return (ret);
@@ -110,7 +110,7 @@ int	compute_rays(t_scene *scene, t_data *data)
 			if (!ray)
 				return (1);
 			ft_mlx_pixel_put(data, x, y,
-					compute_primary_ray(ray, scene));
+				compute_primary_ray(ray, scene));
 			free(ray);
 			x++;
 		}

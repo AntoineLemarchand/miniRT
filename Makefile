@@ -33,30 +33,14 @@ SRCS		= $(addprefix srcs/, \
 				init/init_shapes.c \
 				init/init_scene.c \
 				raytracing/trace_shapes.c \
-				raytracing/ray.c \
+				raytracing/primary_ray.c \
+				raytracing/shadow_ray.c \
 			  	main.c \
-				)
-
-SRCS_TEST	= $(addprefix srcs/, \
-				vectors/vec_basic.c \
-				vectors/vec_alg.c \
-				utils/obj_utils.c \
-				utils/mlx_utils.c \
-				utils/init_utils.c \
-				test/unit_test.c \
-				test/vector_basic_test.c \
-				test/vector_alg_test.c \
-				test/atof_test.c \
-			  	test/main.c \
 				)
 
 OBJS		= $(SRCS:.c=.o)
 
-OBJS_TEST	= $(SRCS_TEST:.c=.o)
-
 NAME		= miniRT
-
-NAME_TEST	= $(NAME)_test
 
 RM			= rm -f
 
@@ -78,23 +62,14 @@ ${NAME}:		$(OBJS)
 				$(call building,libs/minilibx)
 				$(call finishing,$(NAME), $(OBJS))
 
-${NAME_TEST}:	$(OBJS_TEST)
-				$(call building,libs/libft)
-				$(call building,libs/minilibx)
-				$(call finishing,$(NAME_TEST), $(OBJS_TEST))
-
 all:		$(NAME)
-
-test:		$(NAME_TEST)
 
 clean:	
 				$(call removing,$(OBJS))
-				$(call removing,$(OBJS_TEST))
 
 fclean:		clean
 				$(call cleaning,libs/libft,fclean)
 				$(call cleaning,libs/minilibx,clean)
 				$(call removing,${NAME})
-				$(call removing,${NAME_TEST})
 
 re:			fclean all
