@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 10:24:35 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/13 18:12:07 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/02 11:48:45 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*get_content_line(char **content, const char *toFind)
 
 int	get_col(int R, int G, int B)
 {
-	return (R << 24 | G << 16 | B << 8);
+	return (R << 16 | G << 8 | B);
 }
 
 t_vec	get_vec_range(char *content)

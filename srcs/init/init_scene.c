@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 21:37:24 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/31 14:06:32 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/02 12:03:10 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ static t_ambient	*init_ambient(char **content)
 		free(ret);
 		return (NULL);
 	}
+	ret->col[0] *= ret->ratio;
+	ret->col[1] *= ret->ratio;
+	ret->col[2] *= ret->ratio;
 	return (ret);
 }
 

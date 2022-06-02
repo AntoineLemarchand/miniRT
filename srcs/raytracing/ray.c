@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:13:09 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/31 14:07:43 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/02 12:23:11 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ float	get_dist(t_ray *ray, t_objs *shape)
 		return (-1);
 	else if (shape->type == cylinder)
 		return (-1);
-	return (-1.);
+	return (-1);
 }
 
 t_objs	*shape_hit(t_ray *ray, t_scene *scene)
@@ -39,7 +39,7 @@ t_objs	*shape_hit(t_ray *ray, t_scene *scene)
 	{
 		curr_dist = get_dist(ray, curr);
 		if (curr_dist >= 0
-			&& ((curr_dist < min_dist && min_dist > 0) || min_dist < 0))
+			&& ((curr_dist > min_dist && min_dist >= 0) || min_dist < 0))
 		{
 			min_dist = curr_dist;
 			ret = curr;
@@ -59,11 +59,7 @@ int	compute_primary_ray(t_ray *ray, t_scene *scene)
 	shape = shape_hit(ray, scene);
 	if (!shape)
 		return (0);
-	if (shape->type == light)
-		return (get_col(((t_light *)(shape->val))->col[0],
-			((t_light *)(shape->val))->col[1],
-				((t_light *)(shape->val))->col[2]));
-	else if (shape->type == sphere)
+	if (shape->type == sphere)
 		return (get_col(((t_sphere *)(shape->val))->col[0],
 			((t_sphere *)(shape->val))->col[1],
 				((t_sphere *)(shape->val))->col[2]));
@@ -78,10 +74,13 @@ int	compute_primary_ray(t_ray *ray, t_scene *scene)
 	return (0);
 }
 
+// Law of sines
 t_ray	*init_ray(t_camera *camera, int x, int y)
 {
 	t_ray	*ret;
+	float	angle;
 
+	angle = camera->fov / 2;
 	ret = malloc(sizeof(t_ray));
 	if (!ret)
 		return (NULL);
@@ -89,8 +88,8 @@ t_ray	*init_ray(t_camera *camera, int x, int y)
 	ret->origin.y = camera->position.y;
 	ret->origin.z = camera->position.z;
 	ret->offset.x = camera->orientation.x + (x - RES_X / 2);
-	ret->offset.y = camera->orientation.y + (y - RES_Y / 2);
-	ret->offset.z = camera->orientation.z * camera->fov;
+	ret->offset.y = camera->orientation.y - (y - RES_Y / 2);;
+	ret->offset.z = (sinf(90 - angle) * RES_X / 2) / sinf(angle);
 	vec_normalize(&ret->offset);
 	return (ret);
 }
@@ -110,7 +109,8 @@ int	compute_rays(t_scene *scene, t_data *data)
 			ray = init_ray(scene->cam, x, y);
 			if (!ray)
 				return (1);
-			ft_mlx_pixel_put(data, x, y, compute_primary_ray(ray, scene));
+			ft_mlx_pixel_put(data, x, y,
+					compute_primary_ray(ray, scene));
 			free(ray);
 			x++;
 		}
