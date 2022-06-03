@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:13:09 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/02 15:30:39 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/03 15:06:53 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,43 @@ int	compute_primary_ray(t_ray *ray, t_scene *scene)
 	if (!shape)
 		return (0);
 	if (shape->type == sphere)
-		return (get_col(((t_sphere *)(shape->val))->col[0],
-			((t_sphere *)(shape->val))->col[1],
-				((t_sphere *)(shape->val))->col[2]));
+		return (get_col((((t_sphere *)(shape->val))->col[0] * scene->ambient->col[0]) / 255,
+			(((t_sphere *)(shape->val))->col[1] * scene->ambient->col[1]) / 255,
+				(((t_sphere *)(shape->val))->col[2] * scene->ambient->col[2]) / 255));
 	else if (shape->type == plane)
-		return (get_col(((t_plane *)(shape->val))->col[0],
-			((t_plane *)(shape->val))->col[1],
-				((t_plane *)(shape->val))->col[2]));
+		return (get_col((((t_plane *)(shape->val))->col[0] * scene->ambient->col[0]) / 255,
+			(((t_plane *)(shape->val))->col[1] * scene->ambient->col[1]) / 255,
+				(((t_plane *)(shape->val))->col[2] * scene->ambient->col[2]) / 255));
 	else if (shape->type == cylinder)
 		return (get_col(((t_cylinder *)(shape->val))->col[0],
 			((t_cylinder *)(shape->val))->col[1],
 				((t_cylinder *)(shape->val))->col[2]));
 	return (0);
+}
+
+t_vec	*look_at(t_camera *camera)
+{
+	t_vec	*ret;
+	t_vec	mat[3];
+
+	mat[0].x = 0;
+	mat[0].y = 1;
+	mat[0].z = 0;
+	mat[1].x = camera->orientation.x;
+	mat[1].y = camera->orientation.y;
+	mat[1].z = camera->orientation.z;
+	vec_normalize(&mat[2]);
+	mat[2] = *vec_cross_product(&mat[0], &mat[1]);
+	if (!&mat[2])
+		return (NULL);
+	ret = malloc(sizeof(t_vec));
+	if (!ret)
+		return (NULL);
+	ret->x = mat[0].x + mat[1].x + mat[2].x;
+	ret->y = mat[0].y + mat[1].y + mat[2].y;
+	ret->z = mat[0].z + mat[1].z + mat[2].z;
+	vec_normalize(ret);
+	return (ret);
 }
 
 // Law of sines
@@ -87,9 +112,10 @@ t_ray	*init_ray(t_camera *camera, int x, int y)
 	ret->origin.x = camera->position.x;
 	ret->origin.y = camera->position.y;
 	ret->origin.z = camera->position.z;
-	ret->offset.x = camera->orientation.x + (x - RES_X / 2);
-	ret->offset.y = camera->orientation.y - (y - RES_Y / 2);
-	ret->offset.z = (sinf(90 - angle) * RES_X / 2) / sinf(angle);
+	ret->offset.x = (camera->orientation.x + (x - RES_X / 2));
+	ret->offset.y = (camera->orientation.y - (y - RES_Y / 2));
+	ret->offset.z = (camera->orientation.z
+			+ (sinf(90 - angle) * RES_X / 2) / sinf(angle));
 	vec_normalize(&ret->offset);
 	return (ret);
 }
