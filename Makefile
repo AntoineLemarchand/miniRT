@@ -46,7 +46,7 @@ RM			= rm -f
 
 CC			= cc
 
-CFLAGS		= -Wall -Wextra -Werror -g
+CFLAGS		= -Wall -Wextra -Werror -g -o3
 
 CPPFLAGS	= -Ilibs/libft/includes/ -Ilibs/minilibx/ -Iincludes
 
