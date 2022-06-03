@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:13:09 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/03 15:17:02 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/03 15:17:55 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 double	get_dist(t_ray *ray, t_objs *shape)
 {
-	if (shape->type == light)
-		return (-1);
-	else if (shape->type == sphere)
+	if (shape->type == sphere)
 		return (get_sphere_dist(ray, (t_sphere *)shape->val));
 	else if (shape->type == plane)
 		return (get_plane_dist(ray, (t_plane *)shape->val));
