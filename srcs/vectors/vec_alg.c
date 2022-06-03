@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:41:45 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/11 13:40:56 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/03 18:07:52 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,12 @@ float	vec_dot_product(t_vec *v1, t_vec *v2)
 
 // https://www.cl.cam.ac.uk/teaching/1999/AGraphHCI/SMAG/node2.html
 // figure 20
-t_vec	*vec_cross_product(t_vec *v1, t_vec *v2)
+void	vec_cross_product(t_vec *v1, t_vec *v2, t_vec *ret)
 {
-	t_vec	*ret;
-
 	if (v1 && v2)
 	{
-		ret = malloc(sizeof(t_vec));
-		if (!ret)
-			return (NULL);
 		ret->x = v1->y * v2->z - v1->z * v2->y;
 		ret->y = v1->z * v2->x - v1->x * v2->z;
 		ret->z = v1->x * v2->y - v1->y * v2->x;
-		return (ret);
 	}
-	return (NULL);
 }

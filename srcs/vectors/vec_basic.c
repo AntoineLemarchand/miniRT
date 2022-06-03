@@ -6,23 +6,17 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:59:16 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/31 13:36:02 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/03 18:10:37 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_vec	*new_vec(float x, float y, float z)
+void	new_vec(float x, float y, float z, t_vec *ret)
 {
-	t_vec	*ret;
-
-	ret = malloc(sizeof(t_vec));
-	if (!ret)
-		return (NULL);
 	ret->x = x;
 	ret->y = y;
 	ret->z = z;
-	return (ret);
 }
 
 void	vec_multiply(t_vec *vec, float f)

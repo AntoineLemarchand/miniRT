@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:13:09 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/03 16:02:02 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/03 19:57:48 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,47 +53,89 @@ t_objs	*shape_hit(t_ray *ray, t_scene *scene)
 int	compute_primary_ray(t_ray *ray, t_scene *scene)
 {
 	t_objs	*shape;
+	int		*ambient;
 
+	ambient = scene->ambient->col;
 	shape = shape_hit(ray, scene);
 	if (!shape)
 		return (0);
 	if (shape->type == sphere)
-		return (get_col((((t_sphere *)(shape->val))->col[0]
-				* scene->ambient->col[0]) / 255,
-			(((t_sphere *)(shape->val))->col[1] * scene->ambient->col[1]) / 255,
-				(((t_sphere *)(shape->val))->col[2]
-				* scene->ambient->col[2]) / 255));
+		return (get_col((((t_sphere *)(shape->val))->col[0] * ambient[0]) / 255,
+			(((t_sphere *)(shape->val))->col[1] * ambient[1]) / 255,
+				(((t_sphere *)(shape->val))->col[2] * ambient[2]) / 255));
 	else if (shape->type == plane)
-		return (get_col((((t_plane *)(shape->val))->col[0]
-				* scene->ambient->col[0]) / 255,
-			(((t_plane *)(shape->val))->col[1] * scene->ambient->col[1]) / 255,
-				(((t_plane *)(shape->val))->col[2]
-				* scene->ambient->col[2]) / 255));
+		return (get_col((((t_plane *)(shape->val))->col[0] * ambient[0]) / 255,
+			(((t_plane *)(shape->val))->col[1] * ambient[1]) / 255,
+				(((t_plane *)(shape->val))->col[2] * ambient[2]) / 255));
 	else if (shape->type == cylinder)
-		return (get_col(((t_cylinder *)(shape->val))->col[0],
-			((t_cylinder *)(shape->val))->col[1],
-				((t_cylinder *)(shape->val))->col[2]));
+		return (get_col(((t_cylinder *)(shape->val))->col[0] * ambient[0] / 255,
+			((t_cylinder *)(shape->val))->col[1] * ambient[1] / 255,
+				((t_cylinder *)(shape->val))->col[2] * ambient[2] /255));
 	return (0);
 }
 
-// Law of sines
+// https://www.scratchapixel.com/lessons/
+// mathematics-physics-for-computer-graphics/lookat-function
+t_vec	*compute_cam(t_camera *camera)
+{
+	t_vec	*cam_to_world;
+	t_vec	arbitrary;
+
+	cam_to_world = malloc(3 * sizeof(t_vec));
+
+	new_vec(camera->orientation.x, camera->orientation.y, camera->orientation.z,
+			&cam_to_world[2]);
+	vec_normalize(&cam_to_world[2]);
+	new_vec(0, 1, 0, &arbitrary);
+	vec_normalize(&arbitrary);
+	vec_cross_product(&arbitrary, &cam_to_world[2], &cam_to_world[0]);
+	vec_cross_product(&cam_to_world[2], &cam_to_world[0], &cam_to_world[1]);
+	return (cam_to_world);
+}
+
+// -get direction
+// https://www.scratchapixel.com/lessons/3d-basic-rendering/
+// ray-tracing-generating-camera-rays/generating-camera-rays
+// -degree to radian
+// https://stackoverflow.com/questions/14920675
+// /is-there-a-function-in-c-language-to-calculate-degrees-radians
+void	get_ray_dir(t_vec *matrix, t_camera *camera, int x, int y, t_vec *ret)
+{
+	t_vec	tmp;
+	double	fov_rad;
+
+	fov_rad = camera->fov * 0.017453;
+	tmp.x = (-RES_X / 2) * matrix[0].x + (RES_Y / 2) * matrix[1].x
+		- ((RES_Y / 2) / tanf(fov_rad / 2));
+	tmp.y = (-RES_X / 2) * matrix[0].y + (RES_Y / 2) * matrix[1].y
+		- ((RES_Y / 2) / tanf(fov_rad / 2));
+	tmp.z = (-RES_X / 2) * matrix[0].z + (RES_Y / 2) * matrix[1].z
+		+ ((RES_Y / 2) / tanf(fov_rad / 2));
+	ret->x =  x * matrix[0].x + y * (-1 * matrix[1].x) + tmp.x;
+	ret->y =  x * matrix[0].y + y * (-1 * matrix[1].y) + tmp.y;
+	ret->z =  x * matrix[0].z + y * (-1 * matrix[1].z) + tmp.z;
+	vec_normalize(ret);
+}
+
+// Law of sines for distance to viewport
 t_ray	*init_ray(t_camera *camera, int x, int y)
 {
 	t_ray	*ret;
-	double	angle;
+	t_vec	*cam_to_world;
 
-	angle = camera->fov / 2;
 	ret = malloc(sizeof(t_ray));
 	if (!ret)
+		return (NULL);
+	cam_to_world = compute_cam(camera);
+	if (!cam_to_world)
+		free(ret);
+	if (!cam_to_world)
 		return (NULL);
 	ret->origin.x = camera->position.x;
 	ret->origin.y = camera->position.y;
 	ret->origin.z = camera->position.z;
-	ret->offset.x = (camera->orientation.x + (x - RES_X / 2));
-	ret->offset.y = (camera->orientation.y - (y - RES_Y / 2));
-	ret->offset.z = (camera->orientation.z
-			+ (sinf(90 - angle) * RES_X / 2) / sinf(angle));
-	vec_normalize(&ret->offset);
+	get_ray_dir(cam_to_world, camera, x, y, &ret->offset);
+	free(cam_to_world);
 	return (ret);
 }
 
