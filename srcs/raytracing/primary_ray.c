@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:13:09 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/06 15:44:15 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/06 16:06:33 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ double	get_dist(t_ray *ray, t_objs *shape)
 	return (-1);
 }
 
-t_objs	*shape_hit(t_ray *ray, t_scene *scene)
+// this is going to need a bit more work using light attenuation
+// https://www.cs.utexas.edu/~theshark/courses/cs354/lectures/cs354-4.pdf
+// slide 53
+int	compute_primary_ray(t_ray *ray, t_scene *scene)
 {
 	t_objs	*ret;
 	t_objs	*curr;
@@ -44,34 +47,7 @@ t_objs	*shape_hit(t_ray *ray, t_scene *scene)
 		}
 		curr = curr->next;
 	}
-	return (ret);
-}
-
-// this is going to need a bit more work using light attenuation
-// https://www.cs.utexas.edu/~theshark/courses/cs354/lectures/cs354-4.pdf
-// slide 53
-int	compute_primary_ray(t_ray *ray, t_scene *scene)
-{
-	t_objs	*shape;
-	int		*ambient;
-
-	ambient = scene->ambient->col;
-	shape = shape_hit(ray, scene);
-	if (!shape)
-		return (0);
-	if (shape->type == sphere)
-		return (get_col((((t_sphere *)(shape->val))->col[0] * ambient[0]) / 255,
-			(((t_sphere *)(shape->val))->col[1] * ambient[1]) / 255,
-				(((t_sphere *)(shape->val))->col[2] * ambient[2]) / 255));
-	else if (shape->type == plane)
-		return (get_col((((t_plane *)(shape->val))->col[0] * ambient[0]) / 255,
-			(((t_plane *)(shape->val))->col[1] * ambient[1]) / 255,
-				(((t_plane *)(shape->val))->col[2] * ambient[2]) / 255));
-	else if (shape->type == cylinder)
-		return (get_col(((t_cylinder *)(shape->val))->col[0] * ambient[0] / 255,
-			((t_cylinder *)(shape->val))->col[1] * ambient[1] / 255,
-				((t_cylinder *)(shape->val))->col[2] * ambient[2] / 255));
-	return (0);
+	return (get_shaded_col(ret, ray, scene));
 }
 
 int	compute_rays(t_scene *scene, t_data *data)

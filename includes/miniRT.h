@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/06 15:47:02 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/06 16:05:02 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,10 @@ t_ray		*init_ray(t_camera *camera, int x, int y);
 double		get_sphere_dist(t_ray *ray, t_sphere *sphere);
 double		get_plane_dist(t_ray *ray, t_plane *plane);
 
-// ray.c
+// shadow_ray.c
+int			get_shaded_col(t_objs *obj, t_ray *ray, t_scene *scene);
+
+// primary_ray.c
 int			compute_rays(t_scene *scene, t_data *data);
 
 #endif
