@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:13:09 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/06 15:02:27 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:44:15 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,63 +70,8 @@ int	compute_primary_ray(t_ray *ray, t_scene *scene)
 	else if (shape->type == cylinder)
 		return (get_col(((t_cylinder *)(shape->val))->col[0] * ambient[0] / 255,
 			((t_cylinder *)(shape->val))->col[1] * ambient[1] / 255,
-				((t_cylinder *)(shape->val))->col[2] * ambient[2] /255));
+				((t_cylinder *)(shape->val))->col[2] * ambient[2] / 255));
 	return (0);
-}
-
-// https://www.scratchapixel.com/lessons/
-// mathematics-physics-for-computer-graphics/lookat-function
-t_vec	*compute_cam(t_camera *camera)
-{
-	t_vec	*cam_to_world;
-	t_vec	arbitrary;
-
-	cam_to_world = malloc(3 * sizeof(t_vec));
-
-	new_vec(camera->orientation.x, camera->orientation.y, camera->orientation.z,
-			&cam_to_world[2]);
-	vec_normalize(&cam_to_world[2]);
-	new_vec(0, 1, 0, &arbitrary);
-	vec_normalize(&arbitrary);
-	vec_cross_product(&arbitrary, &cam_to_world[2], &cam_to_world[0]);
-	vec_cross_product(&cam_to_world[2], &cam_to_world[0], &cam_to_world[1]);
-	return (cam_to_world);
-}
-
-void	get_ray_dir(t_vec *matrix, t_camera *camera, int x, int y, t_vec *ret)
-{
-	float	focal_dist;
-
-	focal_dist = (180 - camera->fov + 1) * (RES_X / 2) / 180;
-	ret->x = matrix[0].x * (x - RES_X / 2) - matrix[1].x * (y - RES_Y / 2)
-		+ matrix[2].x * focal_dist;
-	ret->y = matrix[0].y * (x - RES_X / 2) - matrix[1].y * (y - RES_Y / 2)
-		+ matrix[2].y * focal_dist;
-	ret->z = matrix[0].z * (x - RES_X / 2) - matrix[1].z * (y - RES_Y / 2)
-		+ matrix[2].z * focal_dist;
-	vec_normalize(ret);
-}
-
-// Law of sines for distance to viewport
-t_ray	*init_ray(t_camera *camera, int x, int y)
-{
-	t_ray	*ret;
-	t_vec	*cam_to_world;
-
-	ret = malloc(sizeof(t_ray));
-	if (!ret)
-		return (NULL);
-	cam_to_world = compute_cam(camera);
-	if (!cam_to_world)
-		free(ret);
-	if (!cam_to_world)
-		return (NULL);
-	ret->origin.x = camera->position.x;
-	ret->origin.y = camera->position.y;
-	ret->origin.z = camera->position.z;
-	get_ray_dir(cam_to_world, camera, x, y, &ret->offset);
-	free(cam_to_world);
-	return (ret);
 }
 
 int	compute_rays(t_scene *scene, t_data *data)

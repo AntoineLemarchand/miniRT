@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/06 09:57:33 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:47:02 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "libft.h"
 # include "mlx.h"
 
-# define RES_X 1360
-# define RES_Y 1080
+# define RES_X 1000
+# define RES_Y 1000
 
 # define MAX_DIST 800
 
@@ -195,6 +195,10 @@ void		add_cylinders_back(t_objs *ret, char **content, char *line,
 
 // init_scene.c
 t_scene		*init_scene(char *file);
+
+// cam.c
+t_vec		*compute_cam(t_camera *camera);
+t_ray		*init_ray(t_camera *camera, int x, int y);
 
 // trace_shapes.c
 double		get_sphere_dist(t_ray *ray, t_sphere *sphere);
