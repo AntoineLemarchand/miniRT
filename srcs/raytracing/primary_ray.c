@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:13:09 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/06 10:16:51 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:02:27 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,17 +93,17 @@ t_vec	*compute_cam(t_camera *camera)
 	return (cam_to_world);
 }
 
-// -get direction
-// https://www.scratchapixel.com/lessons/3d-basic-rendering/
-// ray-tracing-generating-camera-rays/generating-camera-rays
-// -degree to radian
-// https://stackoverflow.com/questions/14920675
-// /is-there-a-function-in-c-language-to-calculate-degrees-radians
 void	get_ray_dir(t_vec *matrix, t_camera *camera, int x, int y, t_vec *ret)
 {
-	ret->x = (camera->position.x + (x - RES_X / 2)) * matrix[0].x - (camera->position.y + (y - RES_Y / 2)) * matrix[1].x + (sinf(90 - camera->fov / 2) * (RES_X / (2 * sinf(camera->fov / 2)))) * matrix[2].x;
-	ret->y = (camera->position.x + (x - RES_X / 2)) * matrix[0].y - (camera->position.y + (y - RES_Y / 2)) * matrix[1].y + (sinf(90 - camera->fov / 2) * (RES_X / (2 * sinf(camera->fov / 2)))) * matrix[2].y;
-	ret->z = (camera->position.x + (x - RES_X / 2)) * matrix[0].z - (camera->position.y + (y - RES_Y / 2)) * matrix[1].z + (sinf(90 - camera->fov / 2) * (RES_X / (2 * sinf(camera->fov / 2)))) * matrix[2].z;
+	float	focal_dist;
+
+	focal_dist = (180 - camera->fov + 1) * (RES_X / 2) / 180;
+	ret->x = matrix[0].x * (x - RES_X / 2) - matrix[1].x * (y - RES_Y / 2)
+		+ matrix[2].x * focal_dist;
+	ret->y = matrix[0].y * (x - RES_X / 2) - matrix[1].y * (y - RES_Y / 2)
+		+ matrix[2].y * focal_dist;
+	ret->z = matrix[0].z * (x - RES_X / 2) - matrix[1].z * (y - RES_Y / 2)
+		+ matrix[2].z * focal_dist;
 	vec_normalize(ret);
 }
 
