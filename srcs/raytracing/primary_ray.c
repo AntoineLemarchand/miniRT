@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:13:09 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/03 19:57:48 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/06 10:16:51 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,19 +101,9 @@ t_vec	*compute_cam(t_camera *camera)
 // /is-there-a-function-in-c-language-to-calculate-degrees-radians
 void	get_ray_dir(t_vec *matrix, t_camera *camera, int x, int y, t_vec *ret)
 {
-	t_vec	tmp;
-	double	fov_rad;
-
-	fov_rad = camera->fov * 0.017453;
-	tmp.x = (-RES_X / 2) * matrix[0].x + (RES_Y / 2) * matrix[1].x
-		- ((RES_Y / 2) / tanf(fov_rad / 2));
-	tmp.y = (-RES_X / 2) * matrix[0].y + (RES_Y / 2) * matrix[1].y
-		- ((RES_Y / 2) / tanf(fov_rad / 2));
-	tmp.z = (-RES_X / 2) * matrix[0].z + (RES_Y / 2) * matrix[1].z
-		+ ((RES_Y / 2) / tanf(fov_rad / 2));
-	ret->x =  x * matrix[0].x + y * (-1 * matrix[1].x) + tmp.x;
-	ret->y =  x * matrix[0].y + y * (-1 * matrix[1].y) + tmp.y;
-	ret->z =  x * matrix[0].z + y * (-1 * matrix[1].z) + tmp.z;
+	ret->x = (camera->position.x + (x - RES_X / 2)) * matrix[0].x - (camera->position.y + (y - RES_Y / 2)) * matrix[1].x + (sinf(90 - camera->fov / 2) * (RES_X / (2 * sinf(camera->fov / 2)))) * matrix[2].x;
+	ret->y = (camera->position.x + (x - RES_X / 2)) * matrix[0].y - (camera->position.y + (y - RES_Y / 2)) * matrix[1].y + (sinf(90 - camera->fov / 2) * (RES_X / (2 * sinf(camera->fov / 2)))) * matrix[2].y;
+	ret->z = (camera->position.x + (x - RES_X / 2)) * matrix[0].z - (camera->position.y + (y - RES_Y / 2)) * matrix[1].z + (sinf(90 - camera->fov / 2) * (RES_X / (2 * sinf(camera->fov / 2)))) * matrix[2].z;
 	vec_normalize(ret);
 }
 
