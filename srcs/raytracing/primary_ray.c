@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:13:09 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/08 11:32:56 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/08 15:30:02 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ double	get_dist(t_ray *ray, t_objs *shape)
 	return (-1);
 }
 
-t_objs	*shape_hit(t_ray *ray, t_scene *scene)
+t_objs	*shape_hit(t_ray *ray, t_scene *scene, t_objs *ignore)
 {
 	t_objs	*ret;
 	t_objs	*curr;
@@ -36,8 +36,8 @@ t_objs	*shape_hit(t_ray *ray, t_scene *scene)
 	while (curr)
 	{
 		curr_dist = get_dist(ray, curr);
-		if (curr_dist >= 0
-			&& ((curr_dist < min_dist && min_dist >= 0) || min_dist < 0))
+		if (curr != ignore && (curr_dist >= 0
+				&& ((curr_dist < min_dist && min_dist >= 0) || min_dist < 0)))
 		{
 			min_dist = curr_dist;
 			ret = curr;
@@ -54,7 +54,7 @@ int	compute_primary_ray(t_ray *ray, t_scene *scene)
 {
 	t_objs	*shape;
 
-	shape = shape_hit(ray, scene);
+	shape = shape_hit(ray, scene, NULL);
 	return (get_shaded_col(shape, ray, scene));
 }
 
@@ -62,23 +62,24 @@ int	compute_rays(t_scene *scene, t_data *data)
 {
 	int		y;
 	int		x;
+	int		col;
 	t_ray	*ray;
 
-	y = 0;
-	while (y < RES_Y)
+	y = -1;
+	while (++y < RES_Y)
 	{
-		x = 0;
-		while (x < RES_X)
+		x = -1;
+		while (++x < RES_X)
 		{
 			ray = init_ray(scene->cam, x, y);
 			if (!ray)
 				return (1);
-			ft_mlx_pixel_put(data, x, y,
-				compute_primary_ray(ray, scene));
+			col = compute_primary_ray(ray, scene);
 			free(ray);
-			x++;
+			if (col == -1)
+				return (1);
+			ft_mlx_pixel_put(data, x, y, col);
 		}
-		y++;
 		printf("\r%i / %i | %i / %i", x, RES_X, y, RES_Y);
 	}
 	printf("\nRaycasting done\n");

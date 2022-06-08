@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 10:24:35 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/02 11:48:45 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/08 13:14:20 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ char	*get_content_line(char **content, const char *toFind)
 
 int	get_col(int R, int G, int B)
 {
+	if (R > 255)
+		R = 255;
+	if (G > 255)
+		G = 255;
+	if (B > 255)
+		B = 255;
 	return (R << 16 | G << 8 | B);
 }
 
