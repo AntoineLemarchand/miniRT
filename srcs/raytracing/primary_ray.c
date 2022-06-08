@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:13:09 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/06 16:06:33 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/08 11:32:56 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ double	get_dist(t_ray *ray, t_objs *shape)
 	return (-1);
 }
 
-// this is going to need a bit more work using light attenuation
-// https://www.cs.utexas.edu/~theshark/courses/cs354/lectures/cs354-4.pdf
-// slide 53
-int	compute_primary_ray(t_ray *ray, t_scene *scene)
+t_objs	*shape_hit(t_ray *ray, t_scene *scene)
 {
 	t_objs	*ret;
 	t_objs	*curr;
@@ -47,7 +44,18 @@ int	compute_primary_ray(t_ray *ray, t_scene *scene)
 		}
 		curr = curr->next;
 	}
-	return (get_shaded_col(ret, ray, scene));
+	return (ret);
+}
+
+// this is going to need a bit more work using light attenuation
+// https://www.cs.utexas.edu/~theshark/courses/cs354/lectures/cs354-4.pdf
+// slide 53
+int	compute_primary_ray(t_ray *ray, t_scene *scene)
+{
+	t_objs	*shape;
+
+	shape = shape_hit(ray, scene);
+	return (get_shaded_col(shape, ray, scene));
 }
 
 int	compute_rays(t_scene *scene, t_data *data)
