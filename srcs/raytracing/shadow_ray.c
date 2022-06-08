@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 15:51:40 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/08 17:34:00 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/08 17:36:28 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static double	*get_light_ratio(t_vec *point, t_objs *obj, t_scene *scene)
 	double	*ret;
 	t_ray	ray;
 	int		hit;
-	(void)obj;
 
+	(void)obj;
 	ret = malloc(3 * sizeof(double));
 	if (!ret)
 		return (NULL);
