@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:13:09 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/08 15:30:02 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/09 10:23:01 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	compute_rays(t_scene *scene, t_data *data)
 				return (1);
 			ft_mlx_pixel_put(data, x, y, col);
 		}
-		printf("\r%i / %i | %i / %i", x, RES_X, y, RES_Y);
+		printf("\r%.2f %%", (float)(100 * (y * RES_X + x) / (RES_X * RES_Y)));
 	}
 	printf("\nRaycasting done\n");
 	return (0);

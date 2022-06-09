@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 15:51:40 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/08 17:36:28 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/09 10:19:54 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static double	*get_light_ratio(t_vec *point, t_objs *obj, t_scene *scene)
 	new_vec(scene->light->position.x,
 		scene->light->position.y,
 		scene->light->position.z, &ray.offset);
+	vec_normalize(&ray.offset);
 	build_ray(&ray);
 	hit = 1;
 	if (shape_hit(&ray, scene, NULL))
