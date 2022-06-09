@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 09:43:37 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/31 10:56:38 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/09 11:17:40 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int ac, char **av)
 		ft_puterror("Corrupted file");
 		quit(&img);
 	}
-	if (compute_rays(img.scene, &img))
+	if (compute_rays(img.scene, &img, NULL, NULL))
 	{
 		ft_puterror("Raycast failed");
 		quit(&img);

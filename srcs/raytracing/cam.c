@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 15:44:20 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/08 13:02:17 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/09 11:09:50 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,13 @@ void	build_ray(t_ray *ray)
 }
 
 // Law of sines for distance to viewport
-t_ray	*init_ray(t_camera *camera, int x, int y)
+t_ray	*init_ray(t_camera *camera, t_vec *matrix, int x, int y)
 {
 	t_ray	*ret;
-	t_vec	*matrix;
 	float	focal_dist;
 
 	ret = malloc(sizeof(t_ray));
 	if (!ret)
-		return (NULL);
-	matrix = compute_cam(camera);
-	if (!matrix)
-		free(ret);
-	if (!matrix)
 		return (NULL);
 	ret->origin.x = camera->position.x;
 	ret->origin.y = camera->position.y;
@@ -73,6 +67,5 @@ t_ray	*init_ray(t_camera *camera, int x, int y)
 	ret->offset.z = matrix[0].z * (x - RES_X / 2)
 		- matrix[1].z * (y - RES_Y / 2) + matrix[2].z * focal_dist;
 	vec_normalize(&ret->offset);
-	free(matrix);
 	return (ret);
 }

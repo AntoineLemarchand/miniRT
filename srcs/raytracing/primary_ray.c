@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:13:09 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/09 10:23:01 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/09 11:15:49 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,30 +58,31 @@ int	compute_primary_ray(t_ray *ray, t_scene *scene)
 	return (get_shaded_col(shape, ray, scene));
 }
 
-int	compute_rays(t_scene *scene, t_data *data)
+int	compute_rays(t_scene *scene, t_data *data, t_ray *ray, t_vec *matrix)
 {
-	int		y;
-	int		x;
+	int		coord[2];
 	int		col;
-	t_ray	*ray;
 
-	y = -1;
-	while (++y < RES_Y)
+	coord[0] = -1;
+	matrix = compute_cam(scene->cam);
+	if (!matrix)
+		return (1);
+	while (++coord[0] < RES_Y)
 	{
-		x = -1;
-		while (++x < RES_X)
+		coord[1] = -1;
+		while (++coord[1] < RES_X)
 		{
-			ray = init_ray(scene->cam, x, y);
-			if (!ray)
-				return (1);
-			col = compute_primary_ray(ray, scene);
+			ray = init_ray(scene->cam, matrix, coord[1], coord[0]);
+			if (ray)
+				col = compute_primary_ray(ray, scene);
 			free(ray);
-			if (col == -1)
+			if (!ray || col == -1)
+				free(matrix);
+			if (!ray || col == -1)
 				return (1);
-			ft_mlx_pixel_put(data, x, y, col);
+			ft_mlx_pixel_put(data, coord[1], coord[0], col);
 		}
-		printf("\r%.2f %%", (float)(100 * (y * RES_X + x) / (RES_X * RES_Y)));
 	}
-	printf("\nRaycasting done\n");
+	free(matrix);
 	return (0);
 }
