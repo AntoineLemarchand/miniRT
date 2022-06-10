@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 15:44:20 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/10 11:11:48 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/10 15:01:49 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_vec	*compute_cam(t_camera *camera)
 	return (matrix);
 }
 
-t_vec	*build_ray_matrix(t_ray *ray)
+t_vec	*build_ray_matrix(t_vec *offset)
 {
 	t_vec	*matrix;
 	t_vec	arbitrary;
@@ -42,7 +42,7 @@ t_vec	*build_ray_matrix(t_ray *ray)
 	matrix = malloc(3 * sizeof(t_ray));
 	if (!matrix)
 		return (NULL);
-	new_vec(ray->offset.x, ray->offset.y, ray->offset.z, &matrix[2]);
+	new_vec(offset->x, offset->y, offset->z, &matrix[2]);
 	vec_normalize(&matrix[2]);
 	new_vec(0, 1, 0, &arbitrary);
 	vec_normalize(&arbitrary);
