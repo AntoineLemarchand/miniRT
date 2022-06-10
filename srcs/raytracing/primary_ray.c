@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:13:09 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/09 11:15:49 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/09 12:13:21 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ double	get_dist(t_ray *ray, t_objs *shape)
 	else if (shape->type == plane)
 		return (get_plane_dist(ray, (t_plane *)shape->val));
 	else if (shape->type == cylinder)
-		return (-1);
+		return (get_cylinder_dist(ray, (t_cylinder *)shape->val));
 	return (-1);
 }
 
