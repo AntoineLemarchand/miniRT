@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/10 15:02:03 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/10 16:28:59 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ t_scene		*init_scene(char *file);
 // cam.c
 t_vec		*compute_cam(t_camera *camera);
 t_ray		*init_ray(t_camera *camera, t_vec *matrix, int x, int y);
-t_vec		*build_ray_matrix(t_vec *offset);
+t_vec		*build_ray_matrix(t_vec *offset, t_vec *matrix);
 
 // trace_shapes.c
 double		get_sphere_dist(t_ray *ray, t_sphere *sphere);
