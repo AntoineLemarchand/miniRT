@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 15:44:20 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/10 10:30:33 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/10 11:11:48 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ t_vec	*compute_cam(t_camera *camera)
 		&matrix[2]);
 	vec_normalize(&matrix[2]);
 	new_vec(0, 1, 0, &arbitrary);
-	if (camera->orientation.x == 0 &&
-			(camera->orientation.y == 1 || camera->orientation.y == -1) &&
-			camera->orientation.z == 0)
+	if (camera->orientation.x == 0
+		&& (camera->orientation.y == 1 || camera->orientation.y == -1)
+		&& camera->orientation.z == 0)
 		new_vec(0, 0, 1, &arbitrary);
 	vec_normalize(&arbitrary);
 	vec_cross_product(&arbitrary, &matrix[2], &matrix[0]);
