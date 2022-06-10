@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:04:13 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/10 10:10:56 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/10 10:20:17 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,16 @@ double	get_cylinder_dist(t_ray *ray, t_cylinder *cylinder)
 	center.x = ray->origin.x - cylinder->position.x;
 	center.y = ray->origin.y - cylinder->position.y;
 	center.z = ray->origin.z - cylinder->position.z;
-	quad[0] = ray->offset.x * ray->offset.x + ray->offset.z * ray->offset.z;
-	quad[1] = 2 * center.x * ray->offset.x + 2 * center.z * ray->offset.z;
-	quad[2] = center.x * center.x + center.z * center.z - radius * radius;
+	quad[0] = cylinder->orientation.x * ray->offset.x * ray->offset.x
+		+ cylinder->orientation.y * ray->offset.y * ray->offset.y
+		+ cylinder->orientation.z * ray->offset.z * ray->offset.z;
+	quad[1] = cylinder->orientation.x * 2 * center.x * ray->offset.x +
+		cylinder->orientation.y * 2 * center.y * ray->offset.y +
+		cylinder->orientation.z * 2 * center.z * ray->offset.z;
+	quad[2] = cylinder->orientation.x * center.x * center.x +
+		cylinder->orientation.y * center.y * center.y +
+		cylinder->orientation.z * center.z * center.z -
+		radius * radius;
 	discr = quad[1] * quad[1] - 4 * quad[0] * quad[2];
 	if (discr < 0)
 		return (-1);
