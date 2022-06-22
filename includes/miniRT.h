@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/10 16:28:59 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/22 16:12:24 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,11 @@ void		vec_cross_product(t_vec *v1, t_vec *v2, t_vec *ret);
 void		free_objs(t_objs **objs);
 void		free_scene(t_scene *scene);
 void		free_array(char **arr);
+
+//	check_utils.c
+char		*next_float(char *line);
+int			check_float_trio(char *line);
+int			check_uint8_trio(char *line);
 
 //	check_objs.c
 int			check_camera_line(char *line);

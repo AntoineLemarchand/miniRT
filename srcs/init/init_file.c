@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 21:37:24 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/31 13:34:54 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/22 16:09:29 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,16 @@ static char	**add_line(char **arr, char *line)
 	return (ret);
 }
 
-static int	check_line(char *line, int len)
+static int	check_line(char *line)
 {
+	int	len;
+
 	if (is_all_blank(line))
 		return (0);
 	len = word_len(line);
 	line = get_next_word(line, 0);
+	if (*line == '#')
+		return (0);
 	if (len == 1 && *line == 'C')
 		return (check_camera_line(get_next_word(line, 1)));
 	else if (len == 1 && *line == 'A')
@@ -55,6 +59,15 @@ static int	check_line(char *line, int len)
 	else if (len == 2 && !ft_strncmp(line, "cy", 2))
 		return (check_cylinder_line(get_next_word(line, 1)));
 	return (1);
+}
+
+void	flush_file(int fd, char *line)
+{
+	while (line)
+	{
+		line = get_next_line(fd);
+		free(line);
+	}
 }
 
 char	**check_file(char *file, char **ret)
@@ -71,10 +84,11 @@ char	**check_file(char *file, char **ret)
 		if (!is_all_blank(line))
 		{
 			ret = add_line(ret, line);
-			if (!ret || check_line(line, 0))
+			if (!ret || check_line(line))
 			{
 				if (ret)
 					free_array(ret);
+				flush_file(fd, line);
 				return (NULL);
 			}
 		}
