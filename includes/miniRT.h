@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/22 16:12:24 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/22 16:58:22 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ void		free_array(char **arr);
 char		*next_float(char *line);
 int			check_float_trio(char *line);
 int			check_uint8_trio(char *line);
+int			check_double(char **content);
 
 //	check_objs.c
 int			check_camera_line(char *line);
@@ -199,7 +200,7 @@ void		add_cylinders_back(t_objs *ret, char **content, char *line,
 				t_objs *new);
 
 // init_scene.c
-t_scene		*init_scene(char *file);
+t_scene		*init_scene(char *file, t_scene *scene);
 
 // cam.c
 t_vec		*compute_cam(t_camera *camera);

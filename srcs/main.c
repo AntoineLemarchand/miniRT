@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 09:43:37 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/22 15:38:21 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/22 16:47:37 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int ac, char **av)
 		ft_puterror("Please enter the name of a .rt file only");
 		return (1);
 	}
-	img.scene = init_scene(av[1]);
+	img.scene = init_scene(av[1], NULL);
 	if (!img.scene)
 	{
 		ft_puterror("Corrupted file");

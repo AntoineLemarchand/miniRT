@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 21:37:24 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/08 13:16:24 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/22 16:48:26 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,18 @@ static t_objs	*init_shapes(char **content)
 	return (ret);
 }
 
-t_scene	*init_scene(char *file)
+t_scene	*init_scene(char *file, t_scene *scene)
 {
 	char		**content;
-	t_scene		*scene;
 
 	content = check_file(file, NULL);
 	if (content == NULL)
 		return (NULL);
+	if (check_double(content))
+	{
+		free_array(content);
+		return (NULL);
+	}
 	scene = malloc(sizeof(t_scene));
 	if (!scene)
 		return (NULL);
