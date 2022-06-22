@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 21:37:24 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/22 16:09:29 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/22 21:37:42 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,19 @@ void	flush_file(int fd, char *line)
 	}
 }
 
+static int	check_open(char *file)
+{
+	if (ft_strlen(file) < 3 || ft_strncmp(file + ft_strlen(file) - 3, ".rt", 3))
+		return (-1);
+	return (open(file, O_RDONLY));
+}
+
 char	**check_file(char *file, char **ret)
 {
 	int		fd;
 	char	*line;
 
-	fd = open(file, O_RDONLY);
+	fd = check_open(file);
 	if (fd == -1)
 		return (NULL);
 	line = get_next_line(fd);
