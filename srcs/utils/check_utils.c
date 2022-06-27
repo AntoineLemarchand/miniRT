@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 16:11:23 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/22 17:00:09 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/27 12:48:03 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	check_float_trio(char *line)
 	if (line == next_float(line))
 		return (1);
 	line = next_float(line);
-	if ((*line > '\t' && *line < '\r') || *line == ' ')
+	if ((*line >= '\t' && *line <= '\r') || *line == ' ')
 		return (0);
 	return (1);
 }
@@ -67,7 +67,7 @@ int	check_uint8_trio(char *line)
 		return (1);
 	while (*line && ft_isdigit(*line))
 		line++;
-	if ((*line > '\t' && *line < '\r') || *line == ' ')
+	if ((*line >= '\t' && *line <= '\r') || *line == ' ')
 		return (0);
 	return (1);
 }
