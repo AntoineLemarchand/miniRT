@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 21:37:24 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/22 16:48:26 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/27 11:34:29 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,9 @@ static t_light	*init_light(char **content)
 	if (!ret)
 		return (NULL);
 	line = get_next_word(get_content_line(content, "L"), 1);
+	ret->position = get_vec_range(line);
+	line = get_next_word(line, 1);
 	ret->ratio = ft_atof(line);
-	line = get_next_word(line, 1);
-	ret->position = get_vec_range(line);
-	line = get_next_word(line, 1);
-	ret->position = get_vec_range(line);
 	line = get_next_word(line, 1);
 	ret->col = get_col_range(line);
 	if (!ret->col)
