@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 15:51:40 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/27 14:08:32 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/06/27 15:46:59 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,15 @@
 static int	is_obstructed(t_ray *ray, t_scene *scene, t_objs *obj)
 {
 	t_objs	*closest;
+	float	dist;
 
 	closest = shape_hit(ray, scene, obj);
+	if (closest)
+		dist = get_dist(ray, closest);
+	else
+		dist = 0;
 	if (!closest 
-		|| get_dist(ray, closest) < vec_dot_product(&ray->origin, &ray->offset))
+		|| (dist <= vec_dot_product(&ray->origin, &ray->offset) && dist))
 		return (1);
 	return (0);
 }
