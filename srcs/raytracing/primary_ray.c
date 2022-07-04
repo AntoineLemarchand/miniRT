@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:13:09 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/09 12:13:21 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/04 15:40:37 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,28 @@ double	get_dist(t_ray *ray, t_objs *shape)
 	return (-1);
 }
 
-t_objs	*shape_hit(t_ray *ray, t_scene *scene, t_objs *ignore)
+t_objs	*shape_hit(t_ray *ray, t_scene *scene, double t_min, double t_max)
 {
 	t_objs	*ret;
 	t_objs	*curr;
 	double	curr_dist;
 	double	min_dist;
 
-	min_dist = -1.;
+	min_dist = INFINITY;
 	ret = NULL;
 	curr = scene->shapes;
 	while (curr)
 	{
 		curr_dist = get_dist(ray, curr);
-		if (curr != ignore && (curr_dist >= 0
-				&& ((curr_dist < min_dist && min_dist >= 0) || min_dist < 0)))
+		if (curr_dist >= t_min && curr_dist < min_dist)
 		{
 			min_dist = curr_dist;
 			ret = curr;
 		}
 		curr = curr->next;
 	}
+	if (min_dist > t_max)
+		return (NULL);
 	return (ret);
 }
 
@@ -54,7 +55,7 @@ int	compute_primary_ray(t_ray *ray, t_scene *scene)
 {
 	t_objs	*shape;
 
-	shape = shape_hit(ray, scene, NULL);
+	shape = shape_hit(ray, scene, 0, INFINITY);
 	return (get_shaded_col(shape, ray, scene));
 }
 

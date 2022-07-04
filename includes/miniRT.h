@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/27 14:29:01 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/04 15:22:45 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,8 @@ void		vec_reduce(t_vec *v1, t_vec *v2, t_vec *ret);
 
 // vec_alg.c
 void		vec_normalize(t_vec *vec);
-float		vec_dot_product(t_vec *v1, t_vec *v2);
+double		vec_dot_product(t_vec *v1, t_vec *v2);
+double		vec_distance(t_vec *v1, t_vec *v2);
 void		vec_cross_product(t_vec *v1, t_vec *v2, t_vec *ret);
 
 // free_utils.c
@@ -216,7 +217,7 @@ double		get_cylinder_dist(t_ray *ray, t_cylinder *cylinder);
 int			get_shaded_col(t_objs *obj, t_ray *ray, t_scene *scene);
 
 // primary_ray.c
-t_objs		*shape_hit(t_ray *ray, t_scene *scene, t_objs *ignore);
+t_objs		*shape_hit(t_ray *ray, t_scene *scene, double t_min, double t_max);
 double		get_dist(t_ray *ray, t_objs *shape);
 int			compute_rays(t_scene *scene, t_data *data, t_ray *ray,
 				t_vec *matrix);

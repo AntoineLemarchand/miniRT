@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:41:45 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/10 15:33:17 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/04 15:49:13 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // http://www.fundza.com/vectors/normalize/
 void	vec_normalize(t_vec *vec)
 {
-	float	length;
+	double	length;
 
 	if (vec)
 	{
@@ -28,7 +28,7 @@ void	vec_normalize(t_vec *vec)
 
 // https://www.cl.cam.ac.uk/teaching/1999/AGraphHCI/SMAG/node2.html
 // figure 15
-float	vec_dot_product(t_vec *v1, t_vec *v2)
+double	vec_dot_product(t_vec *v1, t_vec *v2)
 {
 	if (v1 && v2)
 		return (v1->x * v2->x + v1->y * v2->y + v1->z * v2->z);

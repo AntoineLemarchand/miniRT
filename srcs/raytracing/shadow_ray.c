@@ -6,45 +6,28 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 15:51:40 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/04 11:25:27 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/04 15:49:32 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static int	is_obstructed(t_ray *ray, t_scene *scene, t_objs *obj)
-{
-	t_objs	*closest;
-	float	dist;
-
-	closest = shape_hit(ray, scene, obj);
-	if (closest)
-		dist = get_dist(ray, closest);
-	else
-		dist = 0;
-	if (!closest
-		|| (dist <= vec_dot_product(&ray->origin, &ray->offset) && dist))
-		return (1);
-	return (0);
-}
-
-static double	*get_light_ratio(t_vec *point, t_objs *obj, t_scene *scene)
+static double	*get_light_ratio(t_vec *point, t_scene *scene)
 {
 	double	*ret;
 	t_ray	ray;
-	int		hit;
+	t_objs	*shape;
 
 	ret = malloc(3 * sizeof(double));
 	if (!ret)
 		return (NULL);
 	new_vec(point->x, point->y, point->z, &ray.origin);
-	new_vec(scene->light->position.x, scene->light->position.y,
-		scene->light->position.z, &ray.offset);
-	vec_normalize(&ray.offset);
-	hit = !is_obstructed(&ray, scene, obj);
-	ret[0] = scene->light->col[0] * scene->light->ratio * hit;
-	ret[1] = scene->light->col[1] * scene->light->ratio * hit;
-	ret[2] = scene->light->col[2] * scene->light->ratio * hit;
+	new_vec(scene->light->position.x - point->x, scene->light->position.y
+		- point->y, scene->light->position.z - point->z, &ray.offset);
+	shape = shape_hit(&ray, scene, 0.001, 1);
+	ret[0] = scene->light->col[0] * scene->light->ratio * !shape;
+	ret[1] = scene->light->col[1] * scene->light->ratio * !shape;
+	ret[2] = scene->light->col[2] * scene->light->ratio * !shape;
 	return (ret);
 }
 
@@ -82,7 +65,7 @@ int	get_shaded_col(t_objs *obj, t_ray *ray, t_scene *scene)
 	new_vec(ray->origin.x + ray->offset.x * dist,
 		ray->origin.y + ray->offset.y * dist,
 		ray->origin.z + ray->offset.z * dist, &point);
-	ratio = get_light_ratio(&point, obj, scene);
+	ratio = get_light_ratio(&point, scene);
 	ratio[0] = ratio[0] + scene->ambient->col[0] * scene->ambient->ratio;
 	ratio[1] = ratio[1] + scene->ambient->col[1] * scene->ambient->ratio;
 	ratio[2] = ratio[2] + scene->ambient->col[2] * scene->ambient->ratio;
