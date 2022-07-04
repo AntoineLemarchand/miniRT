@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:04:13 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/27 13:35:45 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/04 11:16:54 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static double	return_dist(double *ret)
 			return (-1);
 		return (ret[1]);
 	}
+	if (ret[1] < 0)
+		return (ret[0]);
 	return (fmin(ret[0], ret[1]));
 }
 

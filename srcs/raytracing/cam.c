@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 15:44:20 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/27 14:28:47 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/04 11:26:08 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ t_vec	*build_ray_matrix(t_vec *offset, t_vec *matrix)
 t_ray	*init_ray(t_camera *camera, t_vec *matrix, int x, int y)
 {
 	t_ray	*ret;
+	float	px;
+	float	py;
 	float	focal_dist;
 
 	ret = malloc(sizeof(t_ray));
@@ -59,13 +61,15 @@ t_ray	*init_ray(t_camera *camera, t_vec *matrix, int x, int y)
 	ret->origin.x = camera->position.x;
 	ret->origin.y = camera->position.y;
 	ret->origin.z = camera->position.z;
-	focal_dist = RES_X / (2 * tanf(camera->fov / 2));
-	ret->offset.x = matrix[0].x * (x - RES_X / 2)
-		- matrix[1].x * (y - RES_Y / 2) + matrix[2].x * focal_dist;
-	ret->offset.y = matrix[0].y * (x - RES_X / 2)
-		- matrix[1].y * (y - RES_Y / 2) + matrix[2].y * focal_dist;
-	ret->offset.z = matrix[0].z * (x - RES_X / 2)
-		- matrix[1].z * (y - RES_Y / 2) + matrix[2].z * focal_dist;
+	px = (x - RES_X / 2);
+	py = (y - RES_Y / 2);
+	focal_dist = (180 - camera->fov) * (RES_X / 2) / 180;
+	ret->offset.x = px * matrix[0].x - py * matrix[1].x
+		+ focal_dist * matrix[2].x;
+	ret->offset.y = px * matrix[0].y - py * matrix[1].y
+		+ focal_dist * matrix[2].y;
+	ret->offset.z = px * matrix[0].z - py * matrix[1].z
+		+ focal_dist * matrix[2].z;
 	vec_normalize(&ret->offset);
 	return (ret);
 }
