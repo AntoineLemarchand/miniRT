@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:13:09 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/04 15:40:37 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/04 15:58:20 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_objs	*shape_hit(t_ray *ray, t_scene *scene, double t_min, double t_max)
 	while (curr)
 	{
 		curr_dist = get_dist(ray, curr);
-		if (curr_dist >= t_min && curr_dist < min_dist)
+		if (curr_dist > t_min && curr_dist < min_dist)
 		{
 			min_dist = curr_dist;
 			ret = curr;
