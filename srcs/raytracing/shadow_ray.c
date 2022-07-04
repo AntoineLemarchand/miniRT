@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 15:51:40 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/04 17:46:49 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:48:48 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	get_normal(t_vec *ret, t_objs *obj, t_vec *point)
 {
-	t_plane	*pl;
 	int		sign;
 
 	if (obj->type == sphere)
@@ -25,16 +24,15 @@ static void	get_normal(t_vec *ret, t_objs *obj, t_vec *point)
 	}
 	else if (obj->type == plane)
 	{
-		pl = ;
 		if (((t_plane *)obj->val)->orientation.x * point->x
 			+ ((t_plane *)obj->val)->orientation.y
 			* point->y + ((t_plane *)obj->val)->orientation.z * point->z > 0)
 			sign = -1;
 		else
 			sign = 1;
-		ret->x = pl->orientation.x * sign;
-		ret->y = pl->orientation.y * sign;
-		ret->z = pl->orientation.z * sign;
+		ret->x = ((t_plane *)obj->val)->orientation.x * sign;
+		ret->y = ((t_plane *)obj->val)->orientation.y * sign;
+		ret->z = ((t_plane *)obj->val)->orientation.z * sign;
 	}
 }
 
