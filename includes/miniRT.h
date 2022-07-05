@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/05 09:56:46 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/05 14:30:20 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,11 +194,11 @@ t_plane		*new_plane(char *line);
 t_cylinder	*new_cylinder(char *line);
 
 // init_shapes.c
-void		add_spheres_back(t_objs *ret, char **content, char *line,
+void		add_spheres_back(t_objs **ret, char **content, char *line,
 				t_objs *new);
-void		add_planes_back(t_objs *ret, char **content, char *line,
+void		add_planes_back(t_objs **ret, char **content, char *line,
 				t_objs *new);
-void		add_cylinders_back(t_objs *ret, char **content, char *line,
+void		add_cylinders_back(t_objs **ret, char **content, char *line,
 				t_objs *new);
 
 // init_scene.c

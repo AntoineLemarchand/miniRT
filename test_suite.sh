@@ -1,7 +1,14 @@
 #!/bin/sh
-array=$(ls -1 examples/basic)
+basics=$(ls -1 examples/basic)
+err=$(ls -1 examples/errors)
 
-for truc in $array
+echo "BASICS"
+for file in $basics
 do
-	./miniRT examples/basic/$truc
+	./miniRT examples/basic/$file
+done
+echo "ERRORS"
+for error in $err
+do
+	./miniRT examples/errors/$error
 done
