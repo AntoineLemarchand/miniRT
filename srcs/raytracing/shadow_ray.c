@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 15:51:40 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/05 14:18:08 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/05 15:39:04 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,31 @@ static void	get_normal(t_vec *ret, t_objs *obj, t_vec *point)
 }
 
 static double	bake_shape(t_scene *scene, t_objs *obj,
-	t_vec *point)
+	t_vec *point, int specular)
 {
 	t_vec	center;
 	t_vec	normal;
+	t_vec	tmp[2];
 	double	dist;
+	double	ret;
 
+	ret = 0;
 	get_normal(&normal, obj, point);
-	center.x = scene->light->position.x - point->x;
-	center.y = scene->light->position.y - point->y;
-	center.z = scene->light->position.z - point->z;
+	new_vec(scene->light->position.x - point->x, scene->light->position.y
+		- point->y, scene->light->position.z - point->z, &center);
 	dist = vec_dot_product(&normal, &center);
 	if (dist > 0)
-		return (scene->light->ratio * dist
-			/ ((vec_len(&normal)) * vec_len(&center)));
-	return (0);
+		ret += scene->light->ratio * dist
+			/ ((vec_len(&normal)) * vec_len(&center));
+	new_vec(scene->cam->position.x - point->x, scene->cam->position.y
+		- point->y, scene->cam->position.z - point->z, &tmp[0]);
+	new_vec(2 * dist * normal.x - center.x, 2 * dist * normal.y - center.y,
+		2 * dist * normal.z - center.z, &tmp[1]);
+	dist = vec_dot_product(&tmp[0], &tmp[1]);
+	if (specular && dist > 0)
+		ret += scene->light->ratio
+			* powf(dist / (vec_len(&tmp[0]) * vec_len(&tmp[1])), 10.);
+	return (ret);
 }
 
 static double	*get_light_ratio(t_vec *point, t_scene *scene, t_objs *obj)
@@ -72,7 +82,7 @@ static double	*get_light_ratio(t_vec *point, t_scene *scene, t_objs *obj)
 		- point->y, scene->light->position.z - point->z, &ray.offset);
 	new_vec(point->x + ray.offset.x * 0.01, point->y + ray.offset.y * 0.01,
 		point->z + ray.offset.z * 0.01, &ray.origin);
-	ratio = bake_shape(scene, obj, point)
+	ratio = bake_shape(scene, obj, point, 0)
 		* (shape_hit(&ray, scene, 0.001, 1) == NULL);
 	ret[0] = scene->light->col[0] * scene->light->ratio * ratio;
 	ret[1] = scene->light->col[1] * scene->light->ratio * ratio;
