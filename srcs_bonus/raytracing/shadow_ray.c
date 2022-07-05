@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 15:51:40 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/05 16:28:54 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/05 16:27:22 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static double	bake_shape(t_scene *scene, t_objs *obj, t_vec *point)
 {
 	t_vec	center;
 	t_vec	normal;
+	t_vec	tmp[2];
 	double	dist;
 	double	ret;
 
@@ -56,6 +57,14 @@ static double	bake_shape(t_scene *scene, t_objs *obj, t_vec *point)
 	if (dist > 0)
 		ret += scene->light->ratio * dist
 			/ ((vec_len(&normal)) * vec_len(&center));
+	new_vec(scene->cam->position.x - point->x, scene->cam->position.y
+		- point->y, scene->cam->position.z - point->z, &tmp[0]);
+	new_vec(2 * dist * normal.x - center.x, 2 * dist * normal.y - center.y,
+		2 * dist * normal.z - center.z, &tmp[1]);
+	dist = vec_dot_product(&tmp[0], &tmp[1]);
+	if (dist > 0)
+		ret += scene->light->ratio
+			* powf(dist / (vec_len(&tmp[0]) * vec_len(&tmp[1])), 10.);
 	return (ret);
 }
 

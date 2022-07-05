@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 16:11:23 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/05 16:22:36 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/05 16:26:38 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,5 @@ int	check_double(char **content)
 			light++;
 		content++;
 	}
-	return (cam != 1 || ambient != 1 || light != 1);
+	return (cam != 1 || ambient != 1 || light < 1);
 }
