@@ -92,13 +92,14 @@ double	get_cylinder_dist(t_ray *ray, t_cylinder *cylinder)
 		return (-1);
 	ret[0] = (-quad[1] + sqrtf(discr)) / (2 * quad[0]);
 	ret[1] = (-quad[1] - sqrtf(discr)) / (2 * quad[0]);
-	if (fabs(ret[0]) >= fabs((cylinder->height / 2
+	return (return_dist(ret));
+}
+
+	/*if (fabs(ret[0]) >= fabs((cylinder->height / 2
 				- vec_dot_product(&cylinder->orientation, &center))
 			/ vec_dot_product(&cylinder->orientation, &ray->offset)))
 		ret[0] = -1;
 	if (fabs(ret[1]) >= fabs((cylinder->height / 2
 				- vec_dot_product(&cylinder->orientation, &center))
 			/ vec_dot_product(&cylinder->orientation, &ray->offset)))
-		ret[1] = -1;
-	return (return_dist(ret));
-}
+		ret[1] = -1;*/

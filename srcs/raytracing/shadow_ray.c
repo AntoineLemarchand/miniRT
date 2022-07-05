@@ -14,6 +14,9 @@
 
 static void	get_normal(t_vec *ret, t_objs *obj, t_vec *point)
 {
+	t_vec	tmp1;
+	t_vec	tmp2;
+
 	if (obj->type == sphere)
 	{
 		ret->x = (point->x - ((t_sphere *)obj->val)->position.x);
@@ -25,6 +28,14 @@ static void	get_normal(t_vec *ret, t_objs *obj, t_vec *point)
 		ret->x = ((t_plane *)obj->val)->orientation.x;
 		ret->y = ((t_plane *)obj->val)->orientation.y;
 		ret->z = ((t_plane *)obj->val)->orientation.z;
+	}
+	else if (obj->type == cylinder)
+	{
+		tmp2.x = (point->x - ((t_cylinder *)obj->val)->position.x);
+		tmp2.y = (point->y - ((t_cylinder *)obj->val)->position.y);
+		tmp2.z = (point->z - ((t_cylinder *)obj->val)->position.z);
+		vec_cross_product(&((t_cylinder *)obj->val)->orientation, &tmp2, &tmp1);
+		vec_cross_product(&tmp1, &((t_cylinder *)obj->val)->orientation, ret);
 	}
 	if (ret->x * point->x + ret->y * point->y + ret->z * point->z > 0)
 		vec_multiply(ret, -1);
