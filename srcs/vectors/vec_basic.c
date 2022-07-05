@@ -6,20 +6,20 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:59:16 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/04 17:47:22 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/05 09:56:25 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void	new_vec(float x, float y, float z, t_vec *ret)
+void	new_vec(double x, double y, double z, t_vec *ret)
 {
 	ret->x = x;
 	ret->y = y;
 	ret->z = z;
 }
 
-void	vec_multiply(t_vec *vec, float f)
+void	vec_multiply(t_vec *vec, double f)
 {
 	if (vec)
 	{
@@ -29,7 +29,7 @@ void	vec_multiply(t_vec *vec, float f)
 	}
 }
 
-void	vec_divide(t_vec *vec, float f)
+void	vec_divide(t_vec *vec, double f)
 {
 	if (vec)
 	{

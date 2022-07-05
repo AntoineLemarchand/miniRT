@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 15:51:40 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/04 17:48:48 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/05 11:41:04 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,20 @@
 
 static void	get_normal(t_vec *ret, t_objs *obj, t_vec *point)
 {
-	int		sign;
-
 	if (obj->type == sphere)
 	{
-		ret->x = point->x - ((t_sphere *)obj->val)->position.x;
-		ret->y = point->y - ((t_sphere *)obj->val)->position.y;
-		ret->z = point->z - ((t_sphere *)obj->val)->position.z;
+		ret->x = (point->x - ((t_sphere *)obj->val)->position.x);
+		ret->y = (point->y - ((t_sphere *)obj->val)->position.y);
+		ret->z = (point->z - ((t_sphere *)obj->val)->position.z);
 	}
 	else if (obj->type == plane)
 	{
-		if (((t_plane *)obj->val)->orientation.x * point->x
-			+ ((t_plane *)obj->val)->orientation.y
-			* point->y + ((t_plane *)obj->val)->orientation.z * point->z > 0)
-			sign = -1;
-		else
-			sign = 1;
-		ret->x = ((t_plane *)obj->val)->orientation.x * sign;
-		ret->y = ((t_plane *)obj->val)->orientation.y * sign;
-		ret->z = ((t_plane *)obj->val)->orientation.z * sign;
+		ret->x = ((t_plane *)obj->val)->orientation.x;
+		ret->y = ((t_plane *)obj->val)->orientation.y;
+		ret->z = ((t_plane *)obj->val)->orientation.z;
 	}
+	if (ret->x * point->x + ret->y * point->y + ret->z * point->z > 0)
+		vec_multiply(ret, -1);
 }
 
 static double	bake_shape(t_scene *scene, t_objs *obj,
@@ -50,7 +44,7 @@ static double	bake_shape(t_scene *scene, t_objs *obj,
 	dist = vec_dot_product(&normal, &center);
 	if (dist > 0)
 		return (scene->light->ratio * dist
-			/ (vec_len(&normal) * vec_len(&center)));
+			/ ((vec_len(&normal)) * vec_len(&center)));
 	return (0);
 }
 
@@ -63,9 +57,10 @@ static double	*get_light_ratio(t_vec *point, t_scene *scene, t_objs *obj)
 	ret = malloc(3 * sizeof(double));
 	if (!ret)
 		return (NULL);
-	new_vec(point->x, point->y, point->z, &ray.origin);
 	new_vec(scene->light->position.x - point->x, scene->light->position.y
 		- point->y, scene->light->position.z - point->z, &ray.offset);
+	new_vec(point->x + ray.offset.x * 0.01, point->y + ray.offset.y * 0.01,
+		point->z + ray.offset.z * 0.01, &ray.origin);
 	ratio = bake_shape(scene, obj, point)
 		* (shape_hit(&ray, scene, 0.001, 1) == NULL);
 	ret[0] = scene->light->col[0] * scene->light->ratio * ratio;

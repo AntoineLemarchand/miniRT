@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/04 17:47:13 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/05 09:56:46 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,9 +152,9 @@ int			word_len(char *line);
 double		ft_atof(const char *s);
 
 // vec_basic.c
-void		new_vec(float x, float y, float z, t_vec *ret);
-void		vec_multiply(t_vec *vec, float f);
-void		vec_divide(t_vec *vec, float f);
+void		new_vec(double x, double y, double z, t_vec *ret);
+void		vec_multiply(t_vec *vec, double f);
+void		vec_divide(t_vec *vec, double f);
 void		vec_reduce(t_vec *v1, t_vec *v2, t_vec *ret);
 double		vec_len(t_vec *vec);
 
