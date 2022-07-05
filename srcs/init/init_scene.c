@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 21:37:24 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/05 15:00:29 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/05 15:01:45 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ static t_camera	*init_cam(char **content)
 	line = get_next_word(line, 1);
 	ret->orientation = get_vec_range(line);
 	if (ret->orientation.x == 0 && ret->orientation.y == 0
-			&& ret->orientation.z == 0)
+		&& ret->orientation.z == 0)
 	{
 		free(ret);
-		return(NULL);
+		return (NULL);
 	}
 	line = get_next_word(line, 1);
 	ret->fov = ft_atoi(line);

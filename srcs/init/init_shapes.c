@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:37:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/05 14:48:49 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/05 15:02:36 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void	add_planes_back(t_objs **ret, char **content, char *line, t_objs *new)
 	}
 }
 
-void	add_cylinders_back(t_objs **ret, char **content, char *line, t_objs *new)
+void	add_cylinders_back(t_objs **ret, char **content, char *line,
+	t_objs *new)
 {
 	while (*content)
 	{

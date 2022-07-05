@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:54:24 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/05 15:00:00 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/05 15:02:09 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_plane	*new_plane(char *line)
 	line = get_next_word(line, 1);
 	ret->orientation = get_vec_range(line);
 	if (ret->orientation.x == 0 && ret->orientation.y == 0
-			&& ret->orientation.z == 0)
+		&& ret->orientation.z == 0)
 	{
 		free(ret);
 		return (NULL);
@@ -69,7 +69,7 @@ t_cylinder	*new_cylinder(char *line)
 	line = get_next_word(line, 1);
 	ret->orientation = get_vec_range(line);
 	if (ret->orientation.x == 0 && ret->orientation.y == 0
-			&& ret->orientation.z == 0)
+		&& ret->orientation.z == 0)
 	{
 		free(ret);
 		return (NULL);
