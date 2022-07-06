@@ -1,23 +1,28 @@
+#	ambient light
+#	intensity	col
+A	.5			255,255,255
+
+#	point light
+#	pos		intensity	col
+L	0,0,0	1			255,255,255
+
+#	camera
+#	pos			dir		fov
 C	2,2,0		-1,0,-1	120
-A			.5	255,255,255
-L	0,0,0	1	255,255,255
 
+#	spheres
+#	pos		diameter	col
+#	big surrounding sphere
 sp	0,0,0	10	127,255,127
-
 #	right		red
 sp	3,0,0	1	255,0,0
-
 #	left		blue
 sp	-3,0,0	1	0,0,255
-
 #	front		green
 sp	0,0,3	1	0,255,0
-
 #	back		yellow
 sp	0,0,-3	1	255,255,0
-
 #	top			purple
 sp	0,3,0	1	127,0,255
-
 #	bottom		orange
 sp	0,-3,0	1	255,127,0

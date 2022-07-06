@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 21:37:24 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/05 15:01:45 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/06 11:39:30 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,24 +55,31 @@ static t_ambient	*init_ambient(char **content)
 	return (ret);
 }
 
-static t_light	*init_light(char **content)
+static t_objs	*init_lights(char **content, t_objs *curr, char *line)
 {
-	t_light	*ret;
-	char	*line;
+	t_objs	*ret;
 
-	ret = malloc(sizeof(t_light));
-	if (!ret)
-		return (NULL);
-	line = get_next_word(get_content_line(content, "L"), 1);
-	ret->position = get_vec_range(line);
-	line = get_next_word(line, 1);
-	ret->ratio = ft_atof(line);
-	line = get_next_word(line, 1);
-	ret->col = get_col_range(line);
-	if (!ret->col)
+	ret = NULL;
+	while (*content)
 	{
-		free(ret);
-		return (NULL);
+		line = get_next_word(*content, 0);
+		if (!ft_strncmp(line, "L", 1))
+		{
+			line = get_next_word(line, 1);
+			curr = malloc(sizeof(t_objs));
+			if (!curr)
+				return (fail_helper(ret));
+			curr->type = light;
+			curr->val = malloc(sizeof(t_light));
+			if (!curr->val)
+				return (fail_helper(ret));
+			line = load_light(((t_light **)&curr->val), line);
+			if (!((t_light *)curr->val)->col)
+				return (fail_helper(ret));
+			curr->next = NULL;
+			ret = obj_add_back(ret, curr);
+		}
+		content++;
 	}
 	return (ret);
 }
@@ -116,10 +123,10 @@ t_scene	*init_scene(char *file, t_scene *scene)
 		return (NULL);
 	scene->cam = init_cam(content);
 	scene->ambient = init_ambient(content);
-	scene->light = init_light(content);
+	scene->lights = init_lights(content, NULL, NULL);
 	scene->shapes = init_shapes(content);
 	free_array(content);
-	if (!scene->cam || !scene->light || !scene->ambient
+	if (!scene->cam || !scene->lights || !scene->ambient
 		|| !scene->shapes)
 	{
 		free_scene(scene);

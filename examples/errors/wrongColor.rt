@@ -1,7 +1,15 @@
-A .8 255,255,255
-L 0,2,4 1 255,276,255
-C 0,10,0 0,-.6,1 120
+#	ambient light
+#	intensity	col
+A	.8			255,255,255
 
-#central sphere
-sp 0,-1,3 2 255,-16,0
+#	point light
+#	pos		intensity	col
+L	0,2,4	1			255,276,255
 
+#	camera
+#	pos		dir		fov
+C	0,10,0	0,-.6,1	120
+
+#	badly coloured sphere
+#	pos		diameter	very wrong color
+sp	0,-1,3	2			256,-16,0

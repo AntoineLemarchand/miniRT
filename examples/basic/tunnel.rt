@@ -1,15 +1,26 @@
-#	lights
+#	ambient light
+#	intensity	col
 A	.6			255,255,120	
-L	0,0,3	.8	255,255,255	
 
-#	cam
+#	point light
+#	pos		intensity	col
+L	0,0,3	.8			255,255,255	
+
+#	camera
+#	pos		dir		fov
 C	0,0,0	0,0,1	120
 
-#	tunnel
-sp	0,0,0	10		255,255,0
-cy	0,0,0	0,0,1	5	10		100,20,20
+#	sphere
+#	pos		diameter	col
+sp	0,0,0	10			255,255,0
 
-#	pillars
+#	cylinder
+#	pos		dir		diameter	height	col
+#	surrounding cylinder
+cy	0,0,0	0,0,1	5			10		100,20,20
+#	big right cyan
 cy	2,0,3	0,1,0	2	10		0,255,255
+#	blue at the end of tunnel
 cy	0,1,4	1,0,0	1	10		0,0,255
+#	orange leaning on the left
 cy	-1,-1,2	1,-1,0	.7	10		255,0,255

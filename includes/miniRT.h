@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/05 14:30:20 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/06 11:42:37 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ typedef struct s_scene {
 	t_camera	*cam;
 	t_ambient	*ambient;
 	t_light		*light;
+	t_objs		*lights;
 	t_objs		*shapes;
 }	t_scene;
 
@@ -150,6 +151,10 @@ int			is_all_blank(char *line);
 char		*get_next_word(char *line, int pass_word);
 int			word_len(char *line);
 double		ft_atof(const char *s);
+
+// load_utils.c
+void		*fail_helper(t_objs *objs);
+char		*load_light(t_light **light, char *line);
 
 // vec_basic.c
 void		new_vec(double x, double y, double z, t_vec *ret);
@@ -194,6 +199,7 @@ t_plane		*new_plane(char *line);
 t_cylinder	*new_cylinder(char *line);
 
 // init_shapes.c
+t_objs		*obj_add_back(t_objs *list, t_objs *new);
 void		add_spheres_back(t_objs **ret, char **content, char *line,
 				t_objs *new);
 void		add_planes_back(t_objs **ret, char **content, char *line,

@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 21:35:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/05/31 14:06:13 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/06 10:03:12 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static void	free_obj(t_objs *obj)
 		free(((t_plane *)(obj->val))->col);
 	else if (obj->type == cylinder)
 		free(((t_cylinder *)(obj->val))->col);
+	else if (obj->type == light)
+		free(((t_light *)(obj->val))->col);
 	if (obj->val)
 		free(obj->val);
 	free(obj);
@@ -58,11 +60,8 @@ void	free_scene(t_scene *scene)
 {
 	if (scene)
 	{
-		if (scene->light)
-		{
-			free(scene->light->col);
-			free(scene->light);
-		}
+		if (scene->lights)
+			free_objs(&scene->lights);
 		if (scene->ambient)
 		{
 			free(scene->ambient->col);

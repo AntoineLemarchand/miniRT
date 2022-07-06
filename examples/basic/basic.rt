@@ -1,15 +1,32 @@
-A .4 255,255,255
-L 0,1,0 .8 255,255,255
-C 0,20,-10 0,-1,1 70
 
-# main 3 spheres
-sp 0,-1,2 2 255,0,0
-sp 2,0,4 2 0,0,255
-sp -2,0,4 2 0,255,0
+#	ambient light
+#	intensity	col
+A	.4			255,255,255
 
-# sides spheres
+#	point light
+#	pos		intensity	col
+L	0,1,0	.8			255,255,255
+
+#	camera
+#	pos			dir		fov
+C	0,20,-10	0,-1,1	70
+
+#	spheres
+#	pos		diameter	col
+#	red middle sphere
+sp	0,-1,2	2			255,0,0
+#	blue middle-right sphere
+sp	2,0,4	2			0,0,255
+#	green middle-left sphere
+sp	-2,0,4	2			0,255,0
+#	far-left magenta sphere
 sp -10,0,0 3 255,0,255
+#	far-right yellow sphere
 sp 10,0,0 3 255,255,0
 
-pl 0,-1,0 0,1,0 26,153,0
-pl 0,0,10 0,0,1 0,128,255
+#	planes
+#	pos		dir		col
+#	grass-green floor
+pl	0,-1,0	0,1,0	26,153,0
+#	sky-blue	background
+pl	0,0,10	0,0,1	0,128,255

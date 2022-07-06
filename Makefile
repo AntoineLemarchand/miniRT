@@ -25,6 +25,7 @@ FILES			= vectors/vec_basic.c \
 				utils/mlx_utils.c \
 				utils/init_utils.c \
 				utils/free_utils.c \
+				utils/load_utils.c \
 				utils/check_utils.c \
 				init/check_shape.c \
 				init/check_objs.c \
