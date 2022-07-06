@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 21:37:24 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/22 21:37:42 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/06 12:22:27 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static int	check_line(char *line)
 		return (check_plane_line(get_next_word(line, 1)));
 	else if (len == 2 && !ft_strncmp(line, "cy", 2))
 		return (check_cylinder_line(get_next_word(line, 1)));
+	else if (len == 2 && !ft_strncmp(line, "tr", 2))
+		return (check_triangle_line(get_next_word(line, 1)));
 	return (1);
 }
 

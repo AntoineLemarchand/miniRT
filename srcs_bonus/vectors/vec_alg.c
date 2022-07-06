@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:41:45 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/04 15:49:13 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/06 12:31:29 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,9 @@ void	vec_cross_product(t_vec *v1, t_vec *v2, t_vec *ret)
 		ret->y = v1->z * v2->x - v1->x * v2->z;
 		ret->z = v1->x * v2->y - v1->y * v2->x;
 	}
+}
+
+int		vec_equal(t_vec *v1, t_vec *v2)
+{
+	return (v1->x == v2->x && v1->y == v2->y && v1->z == v2->z);
 }

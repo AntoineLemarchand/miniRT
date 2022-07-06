@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 15:51:40 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/06 11:50:15 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/06 12:25:11 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	get_normal(t_vec *ret, t_objs *obj, t_vec *point)
 		ret->y = (point->y - ((t_sphere *)obj->val)->position.y);
 		ret->z = (point->z - ((t_sphere *)obj->val)->position.z);
 	}
-	else if (obj->type == plane)
+	else if (obj->type == plane || obj->type == triangle)
 	{
 		ret->x = ((t_plane *)obj->val)->orientation.x;
 		ret->y = ((t_plane *)obj->val)->orientation.y;

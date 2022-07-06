@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:37:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/06 09:34:31 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/06 12:16:04 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,35 @@ void	add_cylinders_back(t_objs **ret, char **content, char *line,
 			new->next = NULL;
 			new->type = cylinder;
 			new->val = (void *)new_cylinder(get_next_word(line, 1));
+			if (!new->val)
+			{
+				free_objs(ret);
+				free(new);
+				return ;
+			}
+			obj_add_back(*ret, new);
+		}
+		content++;
+	}
+}
+
+void	add_triangles_back(t_objs **ret, char **content, char *line,
+	t_objs *new)
+{
+	while (*content)
+	{
+		line = get_next_word(*content, 0);
+		if (!ft_strncmp(line, "tr", 2))
+		{
+			new = malloc(sizeof(t_sphere));
+			if (!new)
+			{
+				free_objs(ret);
+				return ;
+			}
+			new->next = NULL;
+			new->type = triangle;
+			new->val = (void *)new_triangle(get_next_word(line, 1));
 			if (!new->val)
 			{
 				free_objs(ret);

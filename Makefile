@@ -3,7 +3,7 @@ define building
 endef
 
 define compiling
-	$(CC) $(CFLAGS) $(CPPFLAGS) -c $1 -o $2 -D BONUS=$3
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $1 -o $2
 endef
 
 define finishing
@@ -41,7 +41,7 @@ FILES			= vectors/vec_basic.c \
 
 SRCS		= $(addprefix srcs/, $(FILES))
 
-SRCS_BONUS	= $(addprefix srcs_bonus/, $(FILES))
+SRCS_BONUS	= $(addprefix srcs_bonus/, $(FILES) raytracing/trace_triangle.c)
 
 OBJS		= $(SRCS:.c=.o)
 

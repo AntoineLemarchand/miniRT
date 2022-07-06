@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/06 11:42:37 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/06 12:33:34 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,6 @@ typedef struct s_plane {
 	int		*col;
 }	t_plane;
 
-//https://math.stackexchange.com/
-//questions/875569/simple-geometry-question-equation-of-cylinder
-// cylinder equation ():
-// powf((position.y - position.z), 2.) + powf((position.z - position.x), 2.)
-// + powf((position.x - position.y), 2.) == pwf(3 * orientation, 2.)
 typedef struct s_cylinder {
 	t_vec	position;
 	t_vec	orientation;
@@ -111,9 +106,17 @@ typedef struct s_cylinder {
 	int		*col;
 }	t_cylinder;
 
+typedef struct s_triangle {
+	t_vec	pa;
+	t_vec	pb;
+	t_vec	pc;
+	t_vec	orientation;
+	int		*col;
+}	t_triangle;
+
 // scene obj
 
-enum	e_scene_type { none, sphere, plane, cylinder, ambient, light };
+enum	e_scene_type { none, sphere, plane, cylinder, triangle,ambient, light };
 
 typedef struct s_objs {
 	int				type;
@@ -168,6 +171,7 @@ void		vec_normalize(t_vec *vec);
 double		vec_dot_product(t_vec *v1, t_vec *v2);
 double		vec_distance(t_vec *v1, t_vec *v2);
 void		vec_cross_product(t_vec *v1, t_vec *v2, t_vec *ret);
+int			vec_equal(t_vec *v1, t_vec *v2);
 
 // free_utils.c
 void		free_objs(t_objs **objs);
@@ -189,6 +193,7 @@ int			check_light_line(char *line);
 int			check_sphere_line(char *line);
 int			check_plane_line(char *line);
 int			check_cylinder_line(char *line);
+int			check_triangle_line(char *line);
 
 // init_file.c
 char		**check_file(char *file, char **ret);
@@ -197,6 +202,7 @@ char		**check_file(char *file, char **ret);
 t_sphere	*new_sphere(char *line);
 t_plane		*new_plane(char *line);
 t_cylinder	*new_cylinder(char *line);
+t_triangle	*new_triangle(char *line);
 
 // init_shapes.c
 t_objs		*obj_add_back(t_objs *list, t_objs *new);
@@ -205,6 +211,8 @@ void		add_spheres_back(t_objs **ret, char **content, char *line,
 void		add_planes_back(t_objs **ret, char **content, char *line,
 				t_objs *new);
 void		add_cylinders_back(t_objs **ret, char **content, char *line,
+				t_objs *new);
+void		add_triangles_back(t_objs **ret, char **content, char *line,
 				t_objs *new);
 
 // init_scene.c
@@ -219,6 +227,9 @@ t_vec		*build_ray_matrix(t_vec *offset, t_vec *matrix);
 double		get_sphere_dist(t_ray *ray, t_sphere *sphere);
 double		get_plane_dist(t_ray *ray, t_plane *plane);
 double		get_cylinder_dist(t_ray *ray, t_cylinder *cylinder);
+
+// trace_triangle.c
+double		get_triangle_dist(t_ray *ray, t_triangle *triangle);
 
 // shadow_ray.c
 int			get_shaded_col(t_objs *obj, t_ray *ray, t_scene *scene);
