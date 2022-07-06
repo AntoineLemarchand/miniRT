@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 09:43:37 by alemarch          #+#    #+#             */
-/*   Updated: 2022/06/22 16:47:37 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/06 12:07:32 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	main(int ac, char **av)
 		quit(&img);
 	}
 	mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
+	printf("%s: %s rendered\n", av[0], av[1]);
 	mlx_hook(img.win, 2, 1L << 0, end_mlx, &img);
 	mlx_hook(img.win, 33, 1L << 17, end_virtual_mlx, &img);
 	mlx_loop(img.mlx);
