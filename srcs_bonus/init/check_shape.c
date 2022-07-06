@@ -69,7 +69,6 @@ int	check_cylinder_line(char *line)
 	return (0);
 }
 
-
 int	check_triangle_line(char *line)
 {
 	if (check_float_trio(line))
