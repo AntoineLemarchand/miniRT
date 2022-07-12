@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/06 12:33:34 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/12 15:05:02 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,8 +171,12 @@ void		vec_normalize(t_vec *vec);
 double		vec_dot_product(t_vec *v1, t_vec *v2);
 double		vec_distance(t_vec *v1, t_vec *v2);
 void		vec_cross_product(t_vec *v1, t_vec *v2, t_vec *ret);
+// srcs_bonus only
 int			vec_equal(t_vec *v1, t_vec *v2);
 t_vec		vec_inv(t_vec vec);
+
+// vec_utils.c
+int			vec_same_dir(t_vec *v1, t_vec *v2);
 
 // free_utils.c
 void		free_objs(t_objs **objs);

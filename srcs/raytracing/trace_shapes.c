@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:04:13 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/06 12:22:35 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/12 14:30:21 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ double	get_plane_dist(t_ray *ray, t_plane *plane)
 	center.x = plane->position.x - ray->origin.x;
 	center.y = plane->position.y - ray->origin.y;
 	center.z = plane->position.z - ray->origin.z;
-	if (fabs(vec_dot_product(&plane->orientation, &ray->offset)) > 0.00001)
+	if (fabs(vec_dot_product(&plane->orientation, &ray->offset)) > 0)
 		ret = vec_dot_product(&plane->orientation, &center)
 			/ vec_dot_product(&plane->orientation, &ray->offset);
 	else

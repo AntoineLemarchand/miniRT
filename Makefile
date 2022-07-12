@@ -20,6 +20,7 @@ endef
 
 FILES			= vectors/vec_basic.c \
 				vectors/vec_alg.c \
+				vectors/vec_utils.c \
 				utils/get_next_line.c \
 				utils/obj_utils.c \
 				utils/mlx_utils.c \
