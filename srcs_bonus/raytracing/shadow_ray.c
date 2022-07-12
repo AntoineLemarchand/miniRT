@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 15:51:40 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/12 15:02:23 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/12 16:45:20 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ static void	get_normal(t_vec *ret, t_objs *obj, t_vec *point, t_camera *cam)
 
 	if (obj->type == sphere)
 		vec_reduce(point, &((t_sphere *)obj->val)->position, ret);
-	else if (obj->type == plane || obj->type == triangle)
-	{
-		ret->x = ((t_plane *)obj->val)->orientation.x;
-		ret->y = ((t_plane *)obj->val)->orientation.y;
-		ret->z = ((t_plane *)obj->val)->orientation.z;
-	}
+	else if (obj->type == plane)
+		new_vec(((t_plane *)obj->val)->orientation.x,
+			((t_plane *)obj->val)->orientation.y,
+			((t_plane *)obj->val)->orientation.z, ret);
+	else if (obj->type == triangle)
+		new_vec(((t_triangle *)obj->val)->orientation.x,
+			((t_triangle *)obj->val)->orientation.y,
+			((t_triangle *)obj->val)->orientation.z, ret);
 	else if (obj->type == cylinder)
 	{
 		vec_reduce(point, &((t_cylinder *)obj->val)->position, &t[1]);
