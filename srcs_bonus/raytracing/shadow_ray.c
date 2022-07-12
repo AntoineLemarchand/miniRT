@@ -52,12 +52,11 @@ static double	bake_shape(t_camera *cam, t_objs *obj, t_vec *point,
 	if (dist > 0)
 		ret += light->ratio * dist
 			/ ((vec_len(&normal)) * vec_len(&center));
-	new_vec(cam->position.x - point->x, cam->position.y
-		- point->y, cam->position.z - point->z, &tmp[0]);
+	vec_reduce(&cam->position, point, &tmp[0]);
 	new_vec(2 * dist * normal.x - center.x, 2 * dist * normal.y - center.y,
 		2 * dist * normal.z - center.z, &tmp[1]);
 	dist = vec_dot_product(&tmp[0], &tmp[1]);
-	if (dist > 0)
+	if (dist > 0 && vec_same_dir(&tmp[0], &center))
 		ret += light->ratio
 			* powf(dist / (vec_len(&tmp[0]) * vec_len(&tmp[1])), 10.);
 	return (ret);
@@ -81,7 +80,7 @@ static void	get_light_ratio(t_vec *point, t_scene *scene, t_objs *obj,
 		new_vec(point->x + ray.offset.x * 0.01, point->y + ray.offset.y * 0.01,
 			point->z + ray.offset.z * 0.01, &ray.origin);
 		ratio = bake_shape(scene->cam, obj, point, light->val)
-			* (shape_hit(&ray, scene, 0.001, 1) == NULL);
+			* (shape_hit(&ray, scene, 0.00001, 1) == NULL);
 		ret->x += ((t_light *)light->val)->col[0]
 			* ((t_light *)light->val)->ratio * ratio;
 		ret->y += ((t_light *)light->val)->col[1]

@@ -1,0 +1,15 @@
+#	ambient light
+#	intensity	col
+A	0.2		255,255,255
+
+#	point light
+#	pos		intensity	col
+L	0,0,5 .8			255,255,255
+
+#	camera
+#	pos			dir		fov
+C	0,4,-8      0,-0.5,1   70
+
+cy  0,0,5   -0.4,0,-1   5 5   255,0,0
+
+pl  0,0,10   0,0,-1  255,255,255
