@@ -57,8 +57,11 @@ double	get_plane_dist(t_ray *ray, t_plane *plane)
 	center.x = plane->position.x - ray->origin.x;
 	center.y = plane->position.y - ray->origin.y;
 	center.z = plane->position.z - ray->origin.z;
-	ret = vec_dot_product(&plane->orientation, &center)
-		/ vec_dot_product(&plane->orientation, &ray->offset);
+	if (fabs(vec_dot_product(&plane->orientation, &ray->offset)) > 0.00001)
+		ret = vec_dot_product(&plane->orientation, &center)
+			/ vec_dot_product(&plane->orientation, &ray->offset);
+	else
+		ret = -1;
 	return (ret);
 }
 
@@ -66,9 +69,16 @@ static double	get_cylinder_discr(t_cylinder *cylinder, t_ray *ray,
 	t_vec *center, double *quad)
 {
 	t_vec	cross_prod[2];
+	t_vec	inv_center;
 	double	radius;
 
-	vec_cross_product(&cylinder->orientation, center, &cross_prod[0]);
+	center->x = cylinder->position.x - ray->origin.x;
+	center->y = cylinder->position.y - ray->origin.y;
+	center->z = cylinder->position.z - ray->origin.z;
+	inv_center = *center;
+	vec_multiply(&inv_center, -1);
+	vec_normalize(&cylinder->orientation);
+	vec_cross_product(&cylinder->orientation, &inv_center, &cross_prod[0]);
 	vec_cross_product(&cylinder->orientation, &ray->offset, &cross_prod[1]);
 	radius = cylinder->diameter / 2;
 	quad[0] = vec_dot_product(&cross_prod[1], &cross_prod[1]);
@@ -83,23 +93,23 @@ double	get_cylinder_dist(t_ray *ray, t_cylinder *cylinder)
 	double	discr;
 	double	ret[2];
 	t_vec	center;
+	t_vec	tmp[2];
 
-	center.x = ray->origin.x - cylinder->position.x;
-	center.y = ray->origin.y - cylinder->position.y;
-	center.z = ray->origin.z - cylinder->position.z;
 	discr = get_cylinder_discr(cylinder, ray, &center, quad);
 	if (discr < 0)
 		return (-1);
 	ret[0] = (-quad[1] + sqrtf(discr)) / (2 * quad[0]);
 	ret[1] = (-quad[1] - sqrtf(discr)) / (2 * quad[0]);
+	tmp[0] = ray->offset;
+	vec_multiply(&tmp[0], ret[0]);
+	vec_reduce(&tmp[0], &center, &tmp[1]);
+	vec_multiply(&tmp[0], ret[1] / ret[0]);
+	if (fabs(vec_dot_product(&tmp[1], &cylinder->orientation))
+		> cylinder->height / 2)
+		ret[0] = -1;
+	vec_reduce(&tmp[0], &center, &tmp[1]);
+	if (fabs(vec_dot_product(&tmp[1], &cylinder->orientation))
+		> cylinder->height / 2)
+		ret[1] = -1;
 	return (return_dist(ret));
 }
-
-	/*if (fabs(ret[0]) >= fabs((cylinder->height / 2
-				- vec_dot_product(&cylinder->orientation, &center))
-			/ vec_dot_product(&cylinder->orientation, &ray->offset)))
-		ret[0] = -1;
-	if (fabs(ret[1]) >= fabs((cylinder->height / 2
-				- vec_dot_product(&cylinder->orientation, &center))
-			/ vec_dot_product(&cylinder->orientation, &ray->offset)))
-		ret[1] = -1;*/

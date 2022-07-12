@@ -110,6 +110,10 @@ static int	get_shape_col(t_objs *obj, t_vec *ratio)
 		new_vec(((t_plane *)(obj->val))->col[0] * ratio->x / 255,
 			((t_plane *)(obj->val))->col[1] * ratio->y / 255,
 			((t_plane *)(obj->val))->col[2] * ratio->z / 255, &col);
+	else if (obj->type == triangle)
+		new_vec(((t_triangle *)(obj->val))->col[0] * ratio->x / 255,
+			((t_triangle *)(obj->val))->col[1] * ratio->y / 255,
+			((t_triangle *)(obj->val))->col[2] * ratio->z / 255, &col);
 	else if (obj->type == cylinder)
 		new_vec(((t_cylinder *)(obj->val))->col[0] * ratio->x / 255,
 			((t_cylinder *)(obj->val))->col[1] * ratio->y / 255,

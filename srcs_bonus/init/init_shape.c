@@ -89,12 +89,17 @@ t_cylinder	*new_cylinder(char *line)
 
 static int	get_triangle_orientation(t_triangle *ret)
 {
+	t_vec	side[2];
+
 	if (vec_equal(&ret->pa, &ret->pb) || vec_equal(&ret->pa, &ret->pc)
 		|| vec_equal(&ret->pb, &ret->pc))
 		return (1);
-	ret->orientation.x = 0;
-	ret->orientation.y = 1;
-	ret->orientation.z = 0;
+	new_vec(ret->pc.x - ret->pa.x, ret->pc.y - ret->pa.y,
+		ret->pc.z - ret->pa.z, &side[0]);
+	new_vec(ret->pb.x - ret->pa.x, ret->pb.y - ret->pa.y,
+		ret->pb.z - ret->pa.z, &side[1]);
+	vec_cross_product(&side[0], &side[1], &ret->orientation);
+	vec_normalize(&ret->orientation);
 	return (0);
 }
 

@@ -172,6 +172,7 @@ double		vec_dot_product(t_vec *v1, t_vec *v2);
 double		vec_distance(t_vec *v1, t_vec *v2);
 void		vec_cross_product(t_vec *v1, t_vec *v2, t_vec *ret);
 int			vec_equal(t_vec *v1, t_vec *v2);
+t_vec		vec_inv(t_vec vec);
 
 // free_utils.c
 void		free_objs(t_objs **objs);

@@ -1,6 +1,6 @@
 #	camera
 #	pos		dir		fov
-C	0,0,-10	0,0,1	120
+C	0,0,-2  0,0,1	120
 
 #	ambient light
 #	intensity	col
