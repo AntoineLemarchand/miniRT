@@ -6,23 +6,19 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 15:51:40 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/06 11:52:11 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/12 14:53:08 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static void	get_normal(t_vec *ret, t_objs *obj, t_vec *point)
+static void	get_normal(t_vec *ret, t_objs *obj, t_vec *point, t_camera *cam)
 {
 	t_vec	tmp1;
 	t_vec	tmp2;
 
 	if (obj->type == sphere)
-	{
-		ret->x = (point->x - ((t_sphere *)obj->val)->position.x);
-		ret->y = (point->y - ((t_sphere *)obj->val)->position.y);
-		ret->z = (point->z - ((t_sphere *)obj->val)->position.z);
-	}
+		vec_reduce(point, &((t_sphere *)obj->val)->position, ret);
 	else if (obj->type == plane)
 	{
 		ret->x = ((t_plane *)obj->val)->orientation.x;
@@ -31,13 +27,12 @@ static void	get_normal(t_vec *ret, t_objs *obj, t_vec *point)
 	}
 	else if (obj->type == cylinder)
 	{
-		tmp2.x = (point->x - ((t_cylinder *)obj->val)->position.x);
-		tmp2.y = (point->y - ((t_cylinder *)obj->val)->position.y);
-		tmp2.z = (point->z - ((t_cylinder *)obj->val)->position.z);
+		vec_reduce(point, &((t_cylinder *)obj->val)->position, &tmp2);
 		vec_cross_product(&((t_cylinder *)obj->val)->orientation, &tmp2, &tmp1);
 		vec_cross_product(&tmp1, &((t_cylinder *)obj->val)->orientation, ret);
 	}
-	if (ret->x * point->x + ret->y * point->y + ret->z * point->z > 0)
+	vec_reduce(point, &cam->position, &tmp1);
+	if (vec_same_dir(&tmp1, ret))
 		vec_multiply(ret, -1);
 }
 
@@ -49,9 +44,10 @@ static double	bake_shape(t_scene *scene, t_objs *obj, t_vec *point)
 	double	ret;
 
 	ret = 0;
-	get_normal(&normal, obj, point);
-	new_vec(scene->light->position.x - point->x, scene->light->position.y
-		- point->y, scene->light->position.z - point->z, &center);
+	get_normal(&normal, obj, point, scene->cam);
+	new_vec(scene->light->position.x - point->x,
+		scene->light->position.y - point->y,
+		scene->light->position.z - point->z, &center);
 	dist = vec_dot_product(&normal, &center);
 	if (dist > 0)
 		ret += scene->light->ratio * dist
