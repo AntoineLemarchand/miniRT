@@ -16,10 +16,10 @@ L	-69,1,-19	1			0,0,255
 #	pos			dir			col
 pl	0,-50,0		0,1,0		255,50,50
 pl	20,0,50		1,0,1		50,255,50
-pl	-70,2,-20	-1.2,1,-1	50,50,255
+pl	-70,2,-20	-1,1,-1		50,50,255
 
 #	cylinder
-#	pos		dir		diameter	length	col
+#	pos			dir		diameter	length	col
 cy	30,40,10	.2,1,1	5			15		255,255,0
 
 #	sphere

@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:37:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/06 12:16:04 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/13 15:38:39 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	add_cylinders_back(t_objs **ret, char **content, char *line,
 			}
 			new->next = NULL;
 			new->type = cylinder;
-			new->val = (void *)new_cylinder(get_next_word(line, 1));
+			new->val = (void *)new_cylinder(get_next_word(line, 1), NULL);
 			if (!new->val)
 			{
 				free_objs(ret);

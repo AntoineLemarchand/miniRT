@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:54:24 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/06 12:18:04 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/13 15:46:06 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ t_plane	*new_plane(char *line)
 	ret->position = get_vec_range(line);
 	line = get_next_word(line, 1);
 	ret->orientation = get_vec_range(line);
-	if (ret->orientation.x == 0 && ret->orientation.y == 0
-		&& ret->orientation.z == 0)
+	if ((ret->orientation.x == 0 && ret->orientation.y == 0
+			&& ret->orientation.z == 0) || fabs(ret->orientation.x) > 1
+		|| fabs(ret->orientation.y) > 1 || fabs(ret->orientation.z) > 1)
 	{
 		free(ret);
 		return (NULL);
@@ -58,18 +59,17 @@ t_plane	*new_plane(char *line)
 	return (ret);
 }
 
-t_cylinder	*new_cylinder(char *line)
+t_cylinder	*new_cylinder(char *line, t_cylinder *ret)
 {
-	t_cylinder	*ret;
-
 	ret = malloc(sizeof(t_cylinder));
 	if (!ret)
 		return (NULL);
 	ret->position = get_vec_range(line);
 	line = get_next_word(line, 1);
 	ret->orientation = get_vec_range(line);
-	if (ret->orientation.x == 0 && ret->orientation.y == 0
-		&& ret->orientation.z == 0)
+	if ((ret->orientation.x == 0 && ret->orientation.y == 0
+			&& ret->orientation.z == 0) || fabs(ret->orientation.x) > 1
+		|| fabs(ret->orientation.y) > 1 || fabs(ret->orientation.z) > 1)
 	{
 		free(ret);
 		return (NULL);
