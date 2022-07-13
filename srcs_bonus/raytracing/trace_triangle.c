@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 12:23:13 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/06 12:35:08 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/12 16:31:34 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ double	get_triangle_dist(t_ray *ray, t_triangle *triangle)
 	vec_cross_product(&side[4], &side[1], &crossp[3]);
 	vec_cross_product(&side[2], &side[5], &crossp[4]);
 	vec_cross_product(&side[5], &side[7], &crossp[5]);
-	if (vec_dot_product(&crossp[0], &crossp[1]) < 0
-		|| vec_dot_product(&crossp[2], &crossp[3]) < 0
-		|| vec_dot_product(&crossp[4], &crossp[5]) < 0)
+	if (vec_dot_product(&crossp[0], &crossp[1]) <= 0
+		|| vec_dot_product(&crossp[2], &crossp[3]) <= 0
+		|| vec_dot_product(&crossp[4], &crossp[5]) <= 0)
 		ret = -1;
 	return (ret);
 }

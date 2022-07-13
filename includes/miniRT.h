@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/12 15:05:02 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/07/13 15:35:24 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,7 @@ char		**check_file(char *file, char **ret);
 // init_shape.c
 t_sphere	*new_sphere(char *line);
 t_plane		*new_plane(char *line);
-t_cylinder	*new_cylinder(char *line);
+t_cylinder	*new_cylinder(char *line, t_cylinder *ret);
 t_triangle	*new_triangle(char *line);
 
 // init_shapes.c
