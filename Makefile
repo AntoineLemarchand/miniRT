@@ -42,7 +42,7 @@ FILES			= vectors/vec_basic.c \
 
 SRCS		= $(addprefix srcs/, $(FILES))
 
-SRCS_BONUS	= $(addprefix srcs_bonus/, $(FILES) raytracing/trace_triangle.c)
+SRCS_BONUS	= $(addprefix srcs_bonus/, $(FILES) raytracing/trace_triangle.c utils/inputs.c)
 
 OBJS		= $(SRCS:.c=.o)
 

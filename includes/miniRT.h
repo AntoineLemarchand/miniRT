@@ -28,6 +28,18 @@
 # define MAX_DIST 800
 
 # define ESC 65307
+# define KEYL 65361
+# define KEYR 65363
+# define KEYU 65362
+# define KEYD 65364
+# define KEYP 65451
+# define KEYM 65453
+# define KEY4 65430
+# define KEY6 65432
+# define KEY8 65431
+# define KEY2 65433
+
+
 
 // most math comes from:
 // https://www.cl.cam.ac.uk/teaching/1999/AGraphHCI/SMAG/node2.html
@@ -147,6 +159,7 @@ int			end_mlx(int keycode, t_data *data);
 int			end_virtual_mlx(t_data *data);
 void		ft_initdata(t_data *data, char *name);
 void		ft_mlx_pixel_put(t_data *data, int x, int y, int color);
+int 	manage_key(int  keycode, t_data *data);
 
 // init_utils.c
 int			arrlen(char **arr);
@@ -164,6 +177,7 @@ void		new_vec(double x, double y, double z, t_vec *ret);
 void		vec_multiply(t_vec *vec, double f);
 void		vec_divide(t_vec *vec, double f);
 void		vec_reduce(t_vec *v1, t_vec *v2, t_vec *ret);
+void		vec_add(t_vec *v1, t_vec *v2, t_vec *ret);
 double		vec_len(t_vec *vec);
 
 // vec_alg.c
