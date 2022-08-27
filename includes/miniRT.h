@@ -6,7 +6,7 @@
 /*   By: alemarch <alemarch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 23:34:36 by alemarch          #+#    #+#             */
-/*   Updated: 2022/07/13 15:35:24 by alemarch         ###   ########.fr       */
+/*   Updated: 2022/08/27 18:18:56 by alemarch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@
 # define KEY6 65432
 # define KEY8 65431
 # define KEY2 65433
-
-
 
 // most math comes from:
 // https://www.cl.cam.ac.uk/teaching/1999/AGraphHCI/SMAG/node2.html
@@ -159,7 +157,7 @@ int			end_mlx(int keycode, t_data *data);
 int			end_virtual_mlx(t_data *data);
 void		ft_initdata(t_data *data, char *name);
 void		ft_mlx_pixel_put(t_data *data, int x, int y, int color);
-int 	manage_key(int  keycode, t_data *data);
+int			manage_key(int keycode, t_data *data);
 
 // init_utils.c
 int			arrlen(char **arr);
