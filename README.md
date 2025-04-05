@@ -1,6 +1,13 @@
-<h1 align="center">
-MiniRT
-</h1>
+# MiniRT
+<hr>
+<div style="
+  display: flex;
+  border: solid;">
+  <img width=300 src="/imgs/minirt1.png"/>
+  <img width=300 src="/imgs/minirt2.png"/>
+  <img width=300 src="/imgs/minirt3.png"/>
+</div>
+<hr>
 This project aimed to recreate a very basic raytracer. It was the second of the cursus to give the option to achieve it in a group of two or three.
 
 The program (in its bonus version) parses files that can contain multiple colored lights,
