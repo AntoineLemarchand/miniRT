@@ -1,7 +1,10 @@
-# miniRT
-A 42 project that aims to build a very basic ray tracer using the school homemade library: the minilibx
+<h1 align="center">
+MiniRT
+</h1>
+This project aimed to recreate a very basic raytracer. It was the second of the cursus to give the option to achieve it in a group of two or three.
 
-[![Norminette](https://github.com/AntoineLemarchand/miniRT/actions/workflows/main.yml/badge.svg)](https://github.com/AntoineLemarchand/miniRT/actions/workflows/main.yml)
+The program (in its bonus version) parses files that can contain multiple colored lights,
+
 ## Usage
 ```
 ./miniRT <filename>.rt
